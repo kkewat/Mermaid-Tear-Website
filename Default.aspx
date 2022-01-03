@@ -69,7 +69,7 @@
             </div>
           <form class="navbar-form navbar-left" action="/action_page.php">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search" name="search">
+                <input type="text" class="form-control" placeholder="Search" name="search" />
                 <div class="input-group-btn">
                   <button class="btn btn-default" type="submit">
                     <i class="glyphicon glyphicon-search"></i>
@@ -128,7 +128,6 @@
 </div>
 <%-- Image Slider End --%>
     
-    </div>
     <hr />
 <%-- Page Contents Starting --%>
     <div class="container-fluid">
@@ -165,10 +164,10 @@
 <hr/>
 <%-- Page Contents Ending --%>
 
-<%-- Page bottom Conents Starts --%>
+<%-- Page bottom Contents Starts --%>
     <footer>
         <div class="container">
-            <p class="pull-right"><a href="">Back to top</a></p>
+            <p class="pull-right"><a href="#">Back to top</a></p>
             <p>&copy; Mermaid Tears &middot; <a href="Default.aspx">Home </a>&middot; <a href="#">About</a><a href="#">Contact us&middot;</a></p>
         </div>
     </footer>
@@ -176,3 +175,4 @@
 </form>
 </body>
 </html>
+

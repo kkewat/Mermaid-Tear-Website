@@ -31,7 +31,7 @@ public partial class Login : System.Web.UI.Page
 
         SqlConnection con = new SqlConnection("Data Source=DESKTOP-SGG9TB4;Initial Catalog=Gold_Shop;Integrated Security=True");
         SqlCommand cmd = new SqlCommand(@"SELECT [Username]
-      ,[Password]
+      ,[Password],[User_Type]
   FROM[Gold_Shop].[dbo].[User_detail] WHERE Username='" + Username + "' AND Password='" + Password + "'", con);
         
   SqlDataAdapter sda = new SqlDataAdapter(cmd);
@@ -58,10 +58,9 @@ public partial class Login : System.Web.UI.Page
                 Response.Cookies["UName"].Expires = DateTime.Now.AddMonths(-1);
                 Response.Cookies["UPassword"].Expires = DateTime.Now.AddMonths(-1);
             }
-
             Session["Username"] = Username;
             Response.Redirect("UserHomePage.aspx");
-        }else {
+         }else {
             Label1.Text = "Invalid Login Details";
             Label1.ForeColor = System.Drawing.Color.Red;
         }

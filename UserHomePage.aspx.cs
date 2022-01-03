@@ -18,4 +18,10 @@ public partial class UserHomePage : System.Web.UI.Page
             Response.Redirect("~/Login.aspx");
           }
     }
+
+    protected void logoutbtn_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Default.aspx");
+        //Session["Username"] = null;
+    }
 }

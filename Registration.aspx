@@ -77,7 +77,7 @@
                 <td >Confirm Password : </td>
                 <td><asp:TextBox ID="password1" Placeholder="Re-enter Password" TextMode="Password" runat="server"></asp:TextBox></td>
                 <td>
-                    <asp:RequiredFieldValidator ID="Required8" runat="server" ErrorMessage="Required" ControlToValidate="password1" ForeColor="Red"></asp:RequiredFieldValidator></br>
+                    <asp:RequiredFieldValidator ID="Required8" runat="server" ErrorMessage="Required" ControlToValidate="password1" ForeColor="Red"></asp:RequiredFieldValidator><br/>
                     <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Password Didn't Match" ControlToCompare="password" ControlToValidate="password1" ForeColor="Red"></asp:CompareValidator>
                 </td>
             </tr>
@@ -94,7 +94,7 @@
     <%-- Page bottom Conents Starts --%>
     <footer class="footer_position">
         <div class="container">
-            <p class="pull-right"><a href="">Back to top</a></p>
+            <p class="pull-right"><a href="#">Back to top</a></p>
             <p>&copy; Mermaid Tears &middot; <a href="Default.aspx">Home </a>&middot; <a href="#">About</a>&middot;<a href="#">Contact us&middot;</a></p>
         </div>
     </footer>

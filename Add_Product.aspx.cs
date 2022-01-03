@@ -5,16 +5,16 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class AdminMasterPage : System.Web.UI.MasterPage
+public partial class Add_Product : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
 
     }
 
-    protected void Adminlogoutbtn_Click(object sender, EventArgs e)
+
+    protected void AddProduct_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/Login.aspx");
-        Session["Username"] = null;
+
     }
 }

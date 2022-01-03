@@ -22,6 +22,7 @@
     PASSWORD : <asp:TextBox ID="password" TextMode="Password" runat="server"></asp:TextBox><br /><br />
         <asp:CheckBox ID="Remember_me" runat="server" Text="Remember me" /><br />
         <asp:Button ID="login" CssClass="btn btn-success" runat="server" Text="Login" OnClick="login_Click" /><br/><br />
+        <asp:HyperLink ID="frgtpassword" runat="server" NavigateUrl="~/Forgot_Password.aspx">Forgot Password</asp:HyperLink>
    <span> Don't have an account Signup first : <asp:HyperLink ID="HyperLink2" NavigateUrl="~/Registration.aspx" runat="server">Register</asp:HyperLink></span><br />
         <b><asp:Label ID="Label1" runat="server" Text=""></asp:Label></b>
     </div>

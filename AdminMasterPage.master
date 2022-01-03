@@ -28,28 +28,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>                        
                </button>
-                  <a class="navbar-brand" href="Default.aspx">
+                  <a class="navbar-brand" href="Admin home page.aspx">
                      <img src="Images/logo/logo2.png" width="70px" height="40px" style="position:relative;top:-10px"/>
                   </a>
-                  <a class="navbar-brand" href="Default.aspx">Mermaid Tears</a>
+                  <a class="navbar-brand" href="Default.aspx" alt="Admin Home Page">Mermaid Tears</a>
                </div>
              <div class="collapse navbar-collapse" id="myNavbar">
                   <ul class="nav navbar-nav">
-                    <li class="active"><a href="Default.aspx">Home</a></li>
+                    <li class="active"><a href="Admin home page.aspx" alt="Admin home Page">Home</a></li>
 
                     <li class="dropdown">
-                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories <span class="caret"></span></a>
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actions <span class="caret"></span></a>
                       <ul class="dropdown-menu">
-                        <li class="dropdown-header">Gender</li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Men</a></li>
-                        <li><a href="#">Women</a></li>
-                        <li><a href="#">Kids</a></li>
-                        <li><a href="#">Unisex</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Earings</a></li>
-                        <li><a href="#">Pendants</a></li>
-                        <li><a href="#">Finger Rings</a></li>
+                        <li><a href="Add_Product.aspx" alt="Add Products">Add Products</a></li>
+                        <li><a href="Add_Brand.aspx" alt="Add Brands">Add Brands</a></li>
+                        <li><a href="Add_Categories.aspx" alt="Add Categories">Add Categories</a></li>
                       </ul>
                     </li>
 
@@ -64,8 +57,10 @@
 
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
-                    <li><a href="Registration.aspx"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="Login.aspx"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Manage</a></li>
+                    <li>
+                        <asp:Button ID="Adminlogoutbtn" CssClass="btn btn-default navbar-btn" runat="server" Text="Logout" />
+                    </li>
                   </ul>
             </div>
           <form class="navbar-form navbar-left" action="/action_page.php">
@@ -90,10 +85,11 @@
 
     </div>
     </form>
+
 <%-- Page bottom Conents Starts --%>
-    <footer class="footer_position">
+    <footer>
         <div class="container">
-            <p class="pull-right"><a href="">Back to top</a></p>
+            <p class="pull-right"><a href="#">Back to top</a></p>
             <p>&copy; Mermaid Tears &middot; <a href="Default.aspx">Home </a>&middot; <a href="#">About</a>&middot;<a href="#">Contact us&middot;</a></p>
         </div>
     </footer>

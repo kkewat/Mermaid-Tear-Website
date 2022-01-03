@@ -34,9 +34,10 @@ public partial class Registration : System.Web.UI.Page
            ,[Email]
            ,[Phone_no]
            ,[Gender]
-           ,[Password])
+           ,[Password]
+           ,[User_Type])
      VALUES
-           ('" + First_name + "','" + Last_name + "','" + UserName + "','" + Email + "','" + Phoneno + "','" + Gender + "','" + Password + "')", con);
+           ('" + First_name + "','" + Last_name + "','" + UserName + "','" + Email + "','" + Phoneno + "','" + Gender + "','" + Password + "','User')", con);
         con.Open();
         cmd.ExecuteNonQuery();
         con.Close();
