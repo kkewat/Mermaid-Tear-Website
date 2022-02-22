@@ -5,28 +5,23 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class UserHomePage : System.Web.UI.Page
+public partial class User : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         BindCartNum();
-        if (Session["Username"]!= null) 
+        if (Session["Username"] != null)
         {
+            //LblSuccess.Text = "Login Success, Welcome" + Session["Username"].ToString();
             logoutbtn.Visible = true;
             loginbtn.Visible = false;
-            LblSuccess.Text = "Login Success, Welcome"+Session["Username"].ToString();
-         }
-         else 
-         {
-            logoutbtn.Visible = false;
-            logoutbtn.Visible = true;
-            //Response.Redirect("~/Login.aspx");
         }
-
-    }
-    protected void CartClick()
-    {
-        Response.Redirect("Cart.aspx");
+        else
+        {
+            logoutbtn.Visible = false;
+            loginbtn.Visible = true;
+            Response.Redirect("~/Default.aspx");
+        }
     }
     public void BindCartNum()
     {
@@ -44,14 +39,18 @@ public partial class UserHomePage : System.Web.UI.Page
     }
     protected void logoutbtn_Click(object sender, EventArgs e)
     {
-        Session.Abandon();
-        Session["Username"] = null;
+
         Response.Redirect("~/Default.aspx");
-        
+        Session["Username"] = null;
     }
 
     protected void loginbtn_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/Login.aspx");
+    }
+
+    protected void Cart_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Cart.aspx");
     }
 }

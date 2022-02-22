@@ -13,64 +13,64 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body style="background-image:url('Images/logo/logo2.png');background-repeat:no-repeat;background-attachment:fixed;background-size:cover;">
     <form id="form1" runat="server">
     <div>
     <h1> Register </h1>
-        <table align="center"> 
+        <table align="center" controltovalidate="password"> 
             <tr>
                 <td >First Name : </td>
                 <td><asp:TextBox ID="first_name" Placeholder="Enter First Name" runat="server"></asp:TextBox></td>
                 <td>
-                <asp:RequiredFieldValidator ID="Required1" runat="server" ErrorMessage="Required" ControlToValidate="first_name" ForeColor="Red"></asp:RequiredFieldValidator></td>
+                <asp:RequiredFieldValidator ID="Required1" runat="server" ErrorMessage="RequiredFirst Name" ControlToValidate="first_name" ForeColor="Red"></asp:RequiredFieldValidator></td>
             </tr>
             <tr>
                 <td >Last Name : </td>
                 <td><asp:TextBox ID="last_name" Placeholder="Enter Last Name" runat="server"></asp:TextBox></td>
                 <td>
-                    <asp:RequiredFieldValidator ID="Required2" runat="server" ControlToValidate="last_name" ErrorMessage="Required" ForeColor="Red"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="Required2" runat="server" ControlToValidate="last_name" ErrorMessage="Required Last Name" ForeColor="Red"></asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
                 <td >UserName : </td>
                 <td><asp:TextBox ID="username" Placeholder="Enter User Name" runat="server"></asp:TextBox></td>
                 <td>
-                    <asp:RequiredFieldValidator ID="Required3" runat="server" ControlToValidate="username" ErrorMessage="Required" ForeColor="Red"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="Required3" runat="server" ControlToValidate="username" ErrorMessage="Required Username" ForeColor="Red"></asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
                 <td >Gender : </td>
                 <td>
                 <asp:DropDownList ID="gender" Placeholder="Select Gender" runat="server">
-                    <%--<asp:ListItem>Select</asp:ListItem>--%>
+                    <asp:ListItem></asp:ListItem>
                     <asp:ListItem Text="Male" Value="Male">Male</asp:ListItem>
                     <asp:ListItem Text="Female" Value="Female">Female</asp:ListItem>
                     <asp:ListItem Text="Other" Value="Other">Other</asp:ListItem>
                </asp:DropDownList></td>
                <td>
-                   <asp:RequiredFieldValidator ID="Required4" runat="server" ControlToValidate="gender" ErrorMessage="RequiredFieldValidator" ForeColor="Red"></asp:RequiredFieldValidator>
+                   <asp:RequiredFieldValidator ID="Required4" runat="server" ControlToValidate="gender" ErrorMessage="Select Gender" ForeColor="Red"></asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
                 <td >Email : </td>
                 <td><asp:TextBox ID="email" Placeholder="Enter E-Mail" TextMode="Email" runat="server"></asp:TextBox></td>
                 <td>
-                    <asp:RequiredFieldValidator ID="Required5" runat="server" ControlToValidate="email" ErrorMessage="Required" ForeColor="Red"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="Required5" runat="server" ControlToValidate="email" ErrorMessage="Required Email" ForeColor="Red"></asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
                 <td >Phone number : </td>
                 <td><asp:TextBox ID="phone" TextMode="Phone" Placeholder="Enter Phone no." MaxLength="10" runat="server"></asp:TextBox></td>
                 <td>
-                    <asp:RequiredFieldValidator ID="Required6" runat="server" ControlToValidate="phone" ErrorMessage="RequiredFieldValidator" ForeColor="Red"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="Required6" runat="server" ControlToValidate="phone" ErrorMessage="Required Phone no." ForeColor="Red"></asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
                 <td >Password : </td>
-                <td><asp:TextBox ID="password" TextMode="Password" Placeholder="Enter Password" runat="server"></asp:TextBox></td>
+                <td><asp:TextBox ID="password" TextMode="Password" Placeholder="Enter Password" AutoPostBack="true" runat="server"></asp:TextBox></td>
                 <td>
-                    <asp:RequiredFieldValidator ID="Required7" runat="server" ControlToValidate="password" ErrorMessage="Required" ForeColor="Red"></asp:RequiredFieldValidator>
-                    <%--<asp:RegularExpressionValidator ID="ExpressionValidator1" runat="server" ErrorMessage="Password Should be Minimum 8 Letters and Maximum 16 letters" ControlToValidate="password" ValidationExpression="/ ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,16}/ "></asp:RegularExpressionValidator>--%>
+                    <asp:RequiredFieldValidator ID="Required7" runat="server" ControlToValidate="password" ErrorMessage="Required" ForeColor="Red"></asp:RequiredFieldValidator><br />
+                    <asp:RegularExpressionValidator ID="MatchExpression" runat="server" ErrorMessage="Password must be 8-10 characters long with at least one numeric,</br>one upper case character and one special character." Display="Dynamic" ValidationExpression="(?=^.{8,10}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{&quot;:;'?/>.<,])(?!.*\s).*$" ControlToValidate="password" ForeColor="Red"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr>
@@ -86,7 +86,7 @@
         <center>
         <asp:Button ID="register_user" runat="server" Text="SUBMIT" OnClick="register" />&nbsp
         <input id="Reset1" type="reset" value="RESET" />&nbsp
-        <br /> <br />
+        <br /> <br /><asp:Label ID="Label1" runat="server" Text=""></asp:Label><br />
         Already Have a Account then : <asp:HyperLink ID="HyperLink1" NavigateUrl="~/Login.aspx" runat="server">Login</asp:HyperLink>
         </center>
     </div>

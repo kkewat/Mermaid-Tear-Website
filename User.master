@@ -1,11 +1,11 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="AdminMasterPage.master.cs" Inherits="AdminMasterPage" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="User.master.cs" Inherits="User" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Mermaid Tear</title>
-     <meta charset="utf-8"/>
+    <title></title>
+    <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE-edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1"  />
     <link href="css/StyleSheet.css" rel="stylesheet" />
@@ -28,27 +28,28 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>                        
                </button>
-                  <a class="navbar-brand" href="Admin home page.aspx">
+                  <a class="navbar-brand" href="UserHomePage.aspx">
                      <img src="Images/logo/logo2.png" width="70px" height="40px" style="position:relative;top:-10px"/>
                   </a>
-                  <a class="navbar-brand" href="Admin home page.aspx" alt="Admin Home Page">Mermaid Tears</a>
+                  <a class="navbar-brand" href="UserHomePage.aspx" alt="UserHomePage">Mermaid Tears</a>
                </div>
              <div class="collapse navbar-collapse" id="myNavbar">
                   <ul class="nav navbar-nav">
-                    <li class="active"><a href="Admin home page.aspx" alt="Admin home Page">Home</a></li>
+                    <li class="active"><a href="Default.aspx">Home</a></li>
 
                     <li class="dropdown">
-                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actions <span class="caret"></span></a>
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories <span class="caret"></span></a>
                       <ul class="dropdown-menu">
-                        <li><a href="Add_Product.aspx" alt="Add Products">Add Products</a></li>
-                        <li><a href="Add_Brand.aspx" alt="Add Brands">Add Brands</a></li>
-                        <li><a href="Add_Categories.aspx" alt="Add Categories">Add Categories</a></li>
-                        <li><a href="Add_Subcategory.aspx" alt="Add Sub-Categories">Add Sub-Categories</a></li>
-                        <li><a href="Add_Gender.aspx" alt="Add Gender">Add Gender</a></li>
-                        <li><a href="Add_ProductType.aspx" alt="Add Product Type">Add Product Type</a></li>
-                        <li><a href="Add_SubType.aspx" alt="Add Product sub Type">Add Product Sub_Type</a></li>
-                        <li><a href="Add_Size.aspx" alt="Add Size">Add Size</a></li>
-                        <li><a href="Add_GrossWeight.aspx" alt="Add Gross Weight">Add Gross Weight</a></li>
+                        <li class="dropdown-header">Gender</li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Men</a></li>
+                        <li><a href="#">Women</a></li>
+                        <li><a href="#">Kids</a></li>
+                        <li><a href="#">Unisex</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Earings</a></li>
+                        <li><a href="#">Pendants</a></li>
+                        <li><a href="#">Finger Rings</a></li>
                       </ul>
                     </li>
 
@@ -63,10 +64,12 @@
 
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Manage</a></li>
                     <li>
-                        <asp:Button ID="Adminlogoutbtn" CssClass="btn btn-default navbar-btn" runat="server" Text="Logout" OnClick="Adminlogoutbtn_Click" />
+                        <asp:Button ID="loginbtn" CssClass="btn btn-default navbar-btn" runat="server" Text="Logout" OnClick="loginbtn_Click" />
+                        <asp:Button ID="logoutbtn" CssClass="btn btn-default navbar-btn" runat="server" Text="Logout" OnClick="logoutbtn_Click" />
+
                     </li>
+                    <li><asp:LinkButton runat="server" id="Cart" class="btn btn-primary navbar-btn glyphicon glyphicon-shopping-cart" type="button" OnClick="Cart_Click" >Cart<span id="num" class="badge" runat="server">6</span></asp:LinkButton></li>
                   </ul>
             </div>
           <form class="navbar-form navbar-left" action="/action_page.php">
@@ -83,22 +86,21 @@
         </nav>
         </div><br/><br/><br /><br /><hr />
 <%-- Navigation bar ends --%>
-<div class="container">
         <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
         
         </asp:ContentPlaceHolder>
-</div>
-
     </div>
+    
     </form>
-
-<%-- Page bottom Conents Starts --%>
+    <%-- Page bottom Contents Starts --%>
     <footer>
         <div class="container">
             <p class="pull-right"><a href="#">Back to top</a></p>
-            <p>&copy; Mermaid Tears &middot; <a href="Default.aspx">Home </a>&middot; <a href="#">About</a>&middot;<a href="#">Contact us&middot;</a></p>
+            <p>&copy; Mermaid Tears &middot; <a href="Default.aspx">Home </a>&middot; <a href="#">About</a><a href="#">Contact us&middot;</a></p>
         </div>
     </footer>
 <%-- Page bottom Contents Ends --%>
+
 </body>
+
 </html>

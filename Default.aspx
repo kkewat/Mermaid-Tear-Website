@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Gold Shop Website</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE-edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -12,6 +13,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <script>
+      $(document).ready(function myfunc() {
+          $("#Cart").click(function myfunc() {
+              window.location.href = "/Cart.aspx";
+          });
+      });
+  </script>
 
 </head>
 <body>
@@ -63,8 +72,9 @@
 
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
-                    <li><a href="Registration.aspx"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="Login.aspx"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li id="Registerbtn" runat="server"><a href="Registration.aspx"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li id="loginbtn" runat="server"><a href="Login.aspx"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><button id="Cart" class="btn btn-primary navbar-btn glyphicon glyphicon-shopping-cart" onclick="crtbutton()" type="button">Cart<span id="num" class="badge" runat="server">6</span></button></li>
                   </ul>
             </div>
           <form class="navbar-form navbar-left" action="/action_page.php">
@@ -99,7 +109,7 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
       <div class="item active">
-        <img src="Images/Slider/Slider7.jpg" alt="" style="height:386px; width:100%;" />
+        <img src="Images/Slider/Slider7.jpg" alt="" title="image taken from Google.com" style="height:386px; width:100%;" />
         <div class="carousel-caption">
         <h3>Bracelets</h3>
         <p>Flat 25% Off On Bracelets</p>
@@ -107,11 +117,11 @@
       </div>
 
       <div class="item">
-        <img src="Images/Slider/Slider9.jpg" alt="" style="height:386px; width:100%;" />
+        <img src="Images/Slider/Slider9.jpg" alt="" title="image taken from Google.com" style="height:386px; width:100%;" />
       </div>
     
       <div class="item">
-        <img src="Images/Slider/Slider8.jpg" alt="" style="height:386px; width:100%;" />
+        <img src="Images/Slider/Slider8.jpg" alt="" title="image taken from Google.com" style="height:386px; width:100%;" />
       </div>
     </div>
 
@@ -135,13 +145,13 @@
   <div class="row">
     <div class="col-xs-6 col-sm-3" style="background-color:lavender;text-align:center">
       <a href="#">
-      <img class="img-circle" src="Images/dod img/Rings_dod.jpg" alt="Rings" height="150" width="150" />
+      <img class="img-circle" src="Images/dod img/Rings_dod.jpg" title="image taken from Google.com" alt="Rings" height="150" width="150" />
       <h2>Rings</h2>
       </a>
     </div>
     <div class="col-xs-6 col-sm-3" style="background-color:lavenderblush;text-align:center">
       <a href="#">
-      <img class="img-circle" src="Images/dod img/Neckalce_floral.JPG" alt="Floral Design Necklaces" height="150" width="150"/>
+      <img class="img-circle" src="Images/dod img/Neckalce_floral.JPG" alt="Floral Design Necklaces" title="image taken from Google.com" height="150" width="150"/>
       <h2>Floral Necklaces</h2>
       </a>
     </div>
@@ -149,13 +159,13 @@
     <div class="clearfix visible-xs"></div>
     <div class="col-xs-6 col-sm-3" style="background-color:lightcyan;text-align:center">
       <a href="#">
-      <img class="img-circle" src="Images/dod img/Bangles.jpg" alt="Bangles" height="150" width="150"/>
+      <img class="img-circle" src="Images/dod img/Bangles.jpg" alt="Bangles" title="image taken from Google.com" height="150" width="150"/>
       <h2>Bangles </h2>
       </a>
     </div>
     <div class="col-xs-6 col-sm-3" style="background-color:lightgray;text-align:center">
       <a href="#">
-      <img class="img-circle" src="Images/dod img/Gold coin.jpg" alt="Gold Coins" height="150" width="150"/>
+      <img class="img-circle" src="Images/dod img/Gold coin.jpg" alt="Gold Coins" title="image taken from Google.com" height="150" width="150"/>
       <h2>Gold & Silver Coins</h2>
       </a>
     </div>

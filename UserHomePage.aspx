@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="UserHomePage.aspx.cs" Inherits="UserHomePage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="UserHomePage.aspx.cs" Inherits="UserHomePage" EnableEventValidation="false" %>
 
 <!DOCTYPE html>
 
@@ -57,12 +57,15 @@
                         <li><a href="#">Guide book</a></li>
                       </ul>
                     </li>
-
+                    <li ><a href="Products.aspx">All Products</a></li>
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <asp:Button ID="logoutbtn" CssClass="btn btn-default navbar-btn" runat="server" Text="Logout" OnClick="logoutbtn_Click" />
+                        <asp:Button ID="loginbtn" CssClass="btn btn-default navbar-btn glyphicon-log-in" runat="server" Text="Logout" OnClick="loginbtn_Click" />
+                        <asp:Button ID="logoutbtn" CssClass="btn btn-default navbar-btn glyphicon-log-out" runat="server" Text="Logout" OnClick="logoutbtn_Click" />
+
                     </li>
+                    <li><button id="Cart" class="btn btn-primary navbar-btn glyphicon glyphicon-shopping-cart" type="button" > Cart&nbsp<span id="num" class="badge" runat="server">6</span></button></li>
                   </ul>
             </div>
           <form class="navbar-form navbar-left" action="/action_page.php">
@@ -95,7 +98,7 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
       <div class="item active">
-        <img src="Images/Slider/Slider7.jpg" alt="" style="height:386px; width:100%;" />
+        <img src="Images/Slider/Slider7.jpg" alt="" title="image taken from google.com" style="height:386px; width:100%;" />
         <div class="carousel-caption">
         <h3>Bracelets</h3>
         <p>Flat 25% Off On Bracelets</p>

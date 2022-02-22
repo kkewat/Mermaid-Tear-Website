@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 
 public partial class Login : System.Web.UI.Page
 {
+    public static String Connection = ConfigurationManager.ConnectionStrings["Dbconnection"].ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
     {
         if(!IsPostBack) 
@@ -29,10 +30,11 @@ public partial class Login : System.Web.UI.Page
         Username = username.Text;
         Password = password.Text;
 
-        SqlConnection con = new SqlConnection("Data Source=DESKTOP-SGG9TB4;Initial Catalog=Gold_Shop;Integrated Security=True");
+        SqlConnection con = new SqlConnection(Connection);
         SqlCommand cmd = new SqlCommand(@"SELECT [Username]
-      ,[Password],[User_Type]
-  FROM[Gold_Shop].[dbo].[User_detail] WHERE Username='" + Username + "' AND Password='" + Password + "'", con);
+      ,[Password]
+      ,[User_Type]
+  FROM User_detail WHERE Username='" + Username + "' AND Password='" + Password + "'", con);
         
   SqlDataAdapter sda = new SqlDataAdapter(cmd);
         DataTable dt = new DataTable();
@@ -58,9 +60,23 @@ public partial class Login : System.Web.UI.Page
                 Response.Cookies["UName"].Expires = DateTime.Now.AddMonths(-1);
                 Response.Cookies["UPassword"].Expires = DateTime.Now.AddMonths(-1);
             }
-            Session["Username"] = Username;
-            Response.Redirect("UserHomePage.aspx");
-         }else {
+            string Usertype;
+            Usertype = dt.Rows[0][2].ToString().Trim();
+            if(Usertype == "User")
+            {
+                Session["Username"] = Username;
+                Response.Redirect("UserHomePage.aspx");
+            }
+            else
+            if(Usertype == "Admin")
+            {
+                Session["Username"] = Username;
+                Response.Redirect("Admin home page.aspx");
+            }
+            //Session["Username"] = Username;
+            //Response.Redirect("UserHomePage.aspx");
+        }
+        else {
             Label1.Text = "Invalid Login Details";
             Label1.ForeColor = System.Drawing.Color.Red;
         }

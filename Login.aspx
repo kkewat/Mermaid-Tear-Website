@@ -13,17 +13,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<body style="text-align:center;">
+<body style="text-align:center;background-image:url('Images/logo/logo2.png');background-repeat:no-repeat;background-attachment:fixed;background-size:cover;">
     <form id="form1" runat="server">
     <div>
     <h1>Login</h1>
     <br/><br />
-    USERNAME : <asp:TextBox ID="username" runat="server"></asp:TextBox><br />
-    PASSWORD : <asp:TextBox ID="password" TextMode="Password" runat="server"></asp:TextBox><br /><br />
+    USERNAME : <asp:TextBox ID="username" runat="server" ></asp:TextBox><br />
+    PASSWORD : <asp:TextBox ID="password" TextMode="Password" runat="server" ></asp:TextBox><br /><br />
         <asp:CheckBox ID="Remember_me" runat="server" Text="Remember me" /><br />
         <asp:Button ID="login" CssClass="btn btn-success" runat="server" Text="Login" OnClick="login_Click" /><br/><br />
-        <asp:HyperLink ID="frgtpassword" runat="server" NavigateUrl="~/Forgot_Password.aspx">Forgot Password</asp:HyperLink>
-   <span> Don't have an account Signup first : <asp:HyperLink ID="HyperLink2" NavigateUrl="~/Registration.aspx" runat="server">Register</asp:HyperLink></span><br />
+        <asp:HyperLink ID="frgtpassword" runat="server" NavigateUrl="~/Forgot_Password.aspx"><b>Forgot Password</b></asp:HyperLink><br />
+   <span> Don't have an account Signup first : <asp:HyperLink ID="HyperLink2" NavigateUrl="~/Registration.aspx" runat="server"><b>Register</b></asp:HyperLink></span><br />
         <b><asp:Label ID="Label1" runat="server" Text=""></asp:Label></b>
     </div>
 

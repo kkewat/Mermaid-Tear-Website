@@ -14,7 +14,8 @@ public partial class AdminMasterPage : System.Web.UI.MasterPage
 
     protected void Adminlogoutbtn_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/Login.aspx");
-        Session["Username"] = null;
+        
+        Response.Redirect("Default.aspx");
+        //Session["Username"] = null;
     }
 }
