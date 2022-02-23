@@ -18,7 +18,7 @@ public partial class Cart : System.Web.UI.Page
             if (Session["Username"] != null)
             {
                 String name = Session["Username"].ToString();
-                BindProductDetail(name);
+                BindProductDetail();
             }
             else
             {
@@ -26,8 +26,9 @@ public partial class Cart : System.Web.UI.Page
              }
         }
     }
-    private void BindProductDetail(String Name)
+    private void BindProductDetail()
     {
+        String Name = Session["Username"].ToString();
         using (SqlConnection con = new SqlConnection(Connection))
         {
             using (SqlCommand cmd = new SqlCommand("Select * from Cart Where User_Name='" + Name + "'", con))
@@ -44,4 +45,52 @@ public partial class Cart : System.Web.UI.Page
         }
     }
 
+
+
+    protected void increment_Click(object sender, EventArgs e)
+    {
+        RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
+        Label Cid = ((Label)row.FindControl("id")) as Label;
+        using (SqlConnection con = new SqlConnection(Connection))
+        {
+            using (SqlCommand cmd = new SqlCommand("UPDATE Cart SET Quantity = Quantity + 1 where Cart_id ='"+ Cid.Text +"' ", con))
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+                BindProductDetail();
+            }
+        }
+        
+    }
+
+    protected void decrement_Click(object sender, EventArgs e)
+    {
+        RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
+        Label Cid = ((Label)row.FindControl("id")) as Label;
+        using (SqlConnection con = new SqlConnection(Connection))
+        {
+            using (SqlCommand cmd = new SqlCommand("UPDATE Cart SET Quantity = Quantity - 1 where Cart_id ='" + Cid.Text + "' ", con))
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+                BindProductDetail();
+            }
+        }
+    }
+
+    protected void del_Click(object sender, EventArgs e)
+    {
+        RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
+        Label Cid = ((Label)row.FindControl("id1")) as Label;
+        using (SqlConnection con = new SqlConnection(Connection))
+        {
+            using (SqlCommand cmd = new SqlCommand(" delete from Cart Where Cart_id = '" + Cid.Text + "' ", con))
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+                Response.Write("<Script>alert('Brand Deleted Successfully')</Script>");
+            }
+        }
+        BindProductDetail();
+    }
 }
