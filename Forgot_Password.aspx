@@ -24,7 +24,10 @@
            <div class="form-group">
                Enter Email : <asp:TextBox ID="PasswordEmailRecovery" runat="server"></asp:TextBox><br/>
                <asp:Button ID="Recoverpassword" runat="server" Text="Send" OnClick="Recoverpassword_Click" />
+
+               <asp:RequiredFieldValidator ID="EmailRequired" runat="server" ErrorMessage="please Entter Email" ControlToValidate="PasswordEmailRecovery"></asp:RequiredFieldValidator>
            </div>
+           <asp:Label ID="lblResetPassMsg" CssClass ="text-success " runat="server" ></asp:Label>
         </div>
     </div>
     </form>

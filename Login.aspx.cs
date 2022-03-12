@@ -30,11 +30,14 @@ public partial class Login : System.Web.UI.Page
         Username = username.Text;
         Password = password.Text;
 
+        byte[] encData_byte = new byte[Password.Length];
+        encData_byte = System.Text.Encoding.UTF8.GetBytes(Password);
+        string ePassword = Convert.ToBase64String(encData_byte);
         SqlConnection con = new SqlConnection(Connection);
         SqlCommand cmd = new SqlCommand(@"SELECT [Username]
       ,[Password]
       ,[User_Type]
-  FROM User_detail WHERE Username='" + Username + "' AND Password='" + Password + "'", con);
+  FROM User_detail WHERE Username='" + Username + "' AND Password='" + ePassword + "'", con);
         
   SqlDataAdapter sda = new SqlDataAdapter(cmd);
         DataTable dt = new DataTable();

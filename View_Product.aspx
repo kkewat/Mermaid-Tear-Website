@@ -50,8 +50,8 @@
             <ItemTemplate>
            <div class="divDet1">
                <h1 class="proNameView"><%# Eval("Product_Name") %></h1>
-                <span class="pro_OriginalPriceView">Rs. <%# Eval("Product_ListPrice") %></span> <span class="proPriceDiscountView"> (Rs. <%# string.Format("{0}",Convert.ToInt32(Eval("Product_ListPrice"))-Convert.ToInt32(Eval("Product_SellingPrice")))%> off)</span>
-                <p class="proPriceView"><b>Rs. </b><%# Eval("Product_SellingPrice") %></p>
+                <span class="pro_OriginalPriceView">Rs. <%# Eval("Product_ListPrice","{0:0.00}") %></span> <span class="proPriceDiscountView"> (Rs. <%# string.Format("{0}",Convert.ToInt32(Eval("Product_ListPrice","{0:0.00}"))-Convert.ToInt32(Eval("Product_SellingPrice","{0:0.00}")))%> off)</span>
+                <p class="proPriceView"><b>Rs. </b><%# Eval("Product_SellingPrice","{0:0.00}") %></p><br />
            </div>
                      
         <div >

@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="User.master.cs" Inherits="User" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ViewCats.aspx.cs" Inherits="ViewCats" EnableEventValidation="false" %>
 
 <!DOCTYPE html>
 
@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -28,7 +26,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="UserHomePage.aspx">
+                            <a class="navbar-brand" href="UserHomePage.aspx" onclick="">
                                 <img src="Images/logo/logo2.png" width="70px" height="40px" style="position: relative; top: -10px" />
                             </a>
                             <a class="navbar-brand" href="UserHomePage.aspx" alt="UserHomePage">Mermaid Tears</a>
@@ -95,16 +93,33 @@
                     </div>
                 </nav>
             </div>
-            <br />
-            <br />
-            <br />
-            <br />
-            <hr />
             <%-- Navigation bar ends --%>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
-        </div>
 
+            <%-- Write Your Contents Here Start --%>
+            <br /><br /><br />
+            <div class="row" style="padding-top: 50px">
+                <asp:Repeater ID="ViewRepeater" runat="server">
+                    <ItemTemplate>
+                        <div class="col-sm-3 col-md-3">
+                            <a href="View_Product.aspx?Product_id=<%#Eval("Product_id") %>" style="text-decoration: none">
+                                <div class="thumbnail">
+                                    <img src="Images\Product_Images\<%#Eval("Product_id") %>\<%#Eval("ImageName") %><%#Eval("Extension") %>" alt="<%#Eval("ImageName") %>" title="image taken from <%#Eval("Brand_Name") %>.com" style="height:300px; width:100%;" />
+                                    <div class="caption">
+                                        <div class="probrand"><%#Eval("Brand_Name") %></div>
+
+                                        <div class="proName"><%#Eval("Product_Name") %></div>
+                                        <div class="proPrice"><span class="pro_OriginalPrice">Rs. <%#Eval("Product_ListPrice","{0:0.00}") %></span> Rs.<%#Eval("Product_SellingPrice","{0:0.00}") %><span class="proPriceDiscount"> (Rs.<%#Eval("DiscountAmount","{0:0.00}") %> off)</span></div>
+                                    </div>
+                                </div>
+                        </div>
+                        </a>
+                    </ItemTemplate>
+                </asp:Repeater>
+                <hr />
+
+            </div>
+
+            <%-- Write your contents ends here--%>
     </form>
     <%-- Page bottom Contents Starts --%>
     <footer>
@@ -115,5 +130,4 @@
     </footer>
     <%-- Page bottom Contents Ends --%>
 </body>
-
 </html>

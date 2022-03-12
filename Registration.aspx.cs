@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
@@ -26,7 +27,9 @@ public partial class Registration : System.Web.UI.Page
         Password = password.Text;
         Gender = gender.SelectedValue;
         UserName = username.Text;
-
+        byte[] encData_byte = new byte[Password.Length];
+        encData_byte = System.Text.Encoding.UTF8.GetBytes(Password);
+        string ePassword = Convert.ToBase64String(encData_byte);
 
         SqlConnection con = new SqlConnection(Connection);
         SqlCommand cmd = new SqlCommand(@"INSERT INTO User_detail
@@ -39,7 +42,7 @@ public partial class Registration : System.Web.UI.Page
            ,[Password]
            ,[User_Type])
      VALUES
-           ('" + First_name + "','" + Last_name + "','" + UserName + "','" + Email + "','" + Phoneno + "','" + Gender + "','" + Password + "','User')", con);
+           ('" + First_name + "','" + Last_name + "','" + UserName + "','" + Email + "','" + Phoneno + "','" + Gender + "','" + ePassword + "','User')", con);
 
         SqlCommand cmd1 = new SqlCommand(@"SELECT [Username]
       ,[Email]

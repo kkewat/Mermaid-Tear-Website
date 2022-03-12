@@ -13,44 +13,37 @@ public partial class View_Products : System.Web.UI.Page
     public static String Connection = ConfigurationManager.ConnectionStrings["Dbconnection"].ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
     {
-        try {
-            if (!IsPostBack)
+          if (!IsPostBack)
           {
                 BindProdViewRepeater();
-          }
-        }
-        catch(Exception ex)
-        {
-            //Console.WriteLine("Exception occurr: " + ex);
-            throw ex;
-         }
-       
+          }      
     }
 
     private void BindProdViewRepeater()
     {
-
-    try {
-            using (SqlConnection con = new SqlConnection(Connection))
+         // Show All Products
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("BindAllProducts", con))
+                using (SqlConnection con = new SqlConnection(Connection))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    using (SqlCommand cmd = new SqlCommand("BindAllProducts", con))
                     {
-                        DataTable dt = new DataTable();
-                        sda.Fill(dt);
-                        ViewRepeater.DataSource = dt;
-                        ViewRepeater.DataBind();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            sda.Fill(dt);
+                            ViewRepeater.DataSource = dt;
+                            ViewRepeater.DataBind();
+                        }
                     }
                 }
             }
-        }
-    catch(Exception ex) {
+            catch (Exception ex)
+            {
 
-            //Console.WriteLine("Exception occurr: " + ex);
-            throw ex;
+                //Console.WriteLine("Exception occurr: " + ex);
+                throw ex;
+            }
         }
-        
-    }
 }

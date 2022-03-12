@@ -67,9 +67,9 @@
             </tr>
             <tr>
                 <td >Password : </td>
-                <td><asp:TextBox ID="password" TextMode="Password" Placeholder="Enter Password" AutoPostBack="true" runat="server"></asp:TextBox></td>
+                <td><asp:TextBox ID="password" TextMode="Password" Placeholder="Enter Password" runat="server"></asp:TextBox></td>
                 <td>
-                    <asp:RequiredFieldValidator ID="Required7" runat="server" ControlToValidate="password" ErrorMessage="Required" ForeColor="Red"></asp:RequiredFieldValidator><br />
+                    <asp:RequiredFieldValidator ID="Required7" runat="server" ControlToValidate="password" ErrorMessage="Password Required" ForeColor="Red"></asp:RequiredFieldValidator><br />
                     <asp:RegularExpressionValidator ID="MatchExpression" runat="server" ErrorMessage="Password must be 8-10 characters long with at least one numeric,</br>one upper case character and one special character." Display="Dynamic" ValidationExpression="(?=^.{8,10}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{&quot;:;'?/>.<,])(?!.*\s).*$" ControlToValidate="password" ForeColor="Red"></asp:RegularExpressionValidator>
                 </td>
             </tr>

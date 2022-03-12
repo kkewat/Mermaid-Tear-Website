@@ -198,5 +198,10 @@ public partial class View_Product : System.Web.UI.Page
                 
             }
         }
+        else if(Session["Username"] == null)
+        {
+            Response.Write("alert('Unable to Add product. Login First to add to cart')");
+            Response.Redirect("~Login.aspx");
+        }
     }
 }

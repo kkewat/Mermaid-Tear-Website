@@ -5,11 +5,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class User : System.Web.UI.MasterPage
+public partial class Guide : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        BindCartNum();
         if (Session["Username"] != null)
         {
             //LblSuccess.Text = "Login Success, Welcome" + Session["Username"].ToString();
@@ -20,12 +19,8 @@ public partial class User : System.Web.UI.MasterPage
         {
             logoutbtn.Visible = false;
             loginbtn.Visible = true;
-            //Response.Redirect("~/Default.aspx");
+            Response.Redirect("~/Default.aspx");
         }
-    }
-    public void BindCartNum()
-    {
-        
     }
     protected void logoutbtn_Click(object sender, EventArgs e)
     {
@@ -41,14 +36,6 @@ public partial class User : System.Web.UI.MasterPage
 
     protected void Cart_Click(object sender, EventArgs e)
     {
-        if (Session["Username"] != null)
-        {
-            Response.Redirect("Cart.aspx");
-        }
-        else if (Session["Username"] == null)
-        {
-            Response.Write("alert('Login First to add to cart')");
-            Response.Redirect("~Login.aspx");
-        }
+        Response.Redirect("Cart.aspx");
     }
 }
