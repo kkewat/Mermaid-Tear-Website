@@ -11,13 +11,15 @@
         <asp:Label ID="Label1" CssClass="col-md-2 control-label" runat="server" Text="Product Name"></asp:Label>
         <div class="col-md-3">
             <asp:TextBox ID="Productname" CssClass="form-control"  runat="server"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="Productname" ErrorMessage="Required"></asp:RequiredFieldValidator>
         </div>
     </div>
 
     <div class="form-group">
-        <asp:Label ID="Label2" CssClass="col-md-2 control-label" runat="server" Text="Price"></asp:Label>
+        <asp:Label ID="Label2" CssClass="col-md-2 control-label" runat="server" Text="List Price"></asp:Label>
         <div class="col-md-3">
             <asp:TextBox ID="Productprice" CssClass="form-control" TextMode="Number" runat="server"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="Productprice" ErrorMessage="Required"></asp:RequiredFieldValidator>
         </div>
     </div>
 
@@ -25,13 +27,15 @@
         <asp:Label ID="Label3" CssClass="col-md-2 control-label" runat="server" Text="Selling Price"></asp:Label>
         <div class="col-md-3">
             <asp:TextBox ID="ProductSellingprice" CssClass="form-control" runat="server"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="ProductSellingprice" ErrorMessage="Required"></asp:RequiredFieldValidator>
         </div>
     </div>
 
     <div class="form-group">
         <asp:Label ID="Label4" CssClass="col-md-2 control-label" runat="server" Text="Brand"></asp:Label>
         <div class="col-md-3">
-            <asp:DropDownList ID="Product_Brand" runat="server"></asp:DropDownList>
+            <asp:DropDownList ID="Product_Brand" runat="server" AutoPostBack="true"></asp:DropDownList>
+            <asp:Label ID="bndLabel" runat="server" Text=""></asp:Label>
         </div>
     </div>
 
@@ -39,6 +43,7 @@
         <asp:Label ID="Label5" CssClass="col-md-2 control-label" runat="server" Text="Category"></asp:Label>
         <div class="col-md-3">
             <asp:DropDownList ID="Product_Category" runat="server"  OnSelectedIndexChanged="Product_Category_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+            <asp:Label ID="ctlabel" runat="server" Text=""></asp:Label>
         </div>
     </div>
 
@@ -46,6 +51,7 @@
         <asp:Label ID="Label6" CssClass="col-md-2 control-label" runat="server" Text="Sub-Category" ></asp:Label>
         <div class="col-md-3">
             <asp:DropDownList ID="Sub_Category" runat="server" AutoPostBack="true"></asp:DropDownList>
+            <asp:Label ID="sclabel" runat="server" Text=""></asp:Label>
         </div>
     </div>
 
@@ -53,6 +59,7 @@
         <asp:Label ID="Label14" CssClass="col-md-2 control-label" runat="server" Text="Product-Type"></asp:Label>
         <div class="col-md-3">
             <asp:DropDownList ID="ProductType" runat="server" OnSelectedIndexChanged="Product_Type_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+            <asp:Label ID="ptlabel" runat="server" Text=""></asp:Label>
         </div>
     </div>
 
@@ -60,6 +67,7 @@
         <asp:Label ID="Label15" CssClass="col-md-2 control-label" runat="server" Text="Sub-Type"></asp:Label>
         <div class="col-md-3">
             <asp:DropDownList ID="Sub_type" runat="server" AutoPostBack="true" OnSelectedIndexChanged="Sub_type_SelectedIndexChanged"></asp:DropDownList>
+            <asp:Label ID="stlabel" runat="server" Text=""></asp:Label>
         </div>
     </div>
 
@@ -67,6 +75,7 @@
         <asp:Label ID="Label16" CssClass="col-md-2 control-label" runat="server" Text="Gender"></asp:Label>
         <div class="col-md-3">
             <asp:DropDownList ID="Gender" runat="server" AutoPostBack="true"></asp:DropDownList>
+            <asp:Label ID="gdlabel" runat="server" Text=""></asp:Label>
         </div>
     </div>
 
@@ -88,6 +97,7 @@
         <asp:Label ID="Label17" CssClass="col-md-2 control-label" runat="server" Text="Quantity"></asp:Label>
         <div class="col-md-3">
             <asp:TextBox ID="Product_Stock" CssClass="form-control"  runat="server"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="Product_Stock" runat="server" ErrorMessage="Required"></asp:RequiredFieldValidator>
         </div>
     </div>
 
@@ -95,6 +105,7 @@
         <asp:Label ID="Label7" CssClass="col-md-2 control-label" runat="server" Text="Description"></asp:Label>
         <div class="col-md-3">
             <asp:TextBox ID="Product_Description" TextMode="MultiLine" CssClass="form-control"  runat="server"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="Product_Description1" ControlToValidate="Product_Stock" runat="server" ErrorMessage="Required"></asp:RequiredFieldValidator>
         </div>
     </div>
 
@@ -102,6 +113,7 @@
         <asp:Label ID="Label8" CssClass="col-md-2 control-label" runat="server" Text="Product Detail"></asp:Label>
         <div class="col-md-3">
             <asp:TextBox ID="Product_detail" TextMode="MultiLine" CssClass="form-control"  runat="server"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="Product_detail" runat="server" ErrorMessage="Required"></asp:RequiredFieldValidator>
         </div>
     </div>
 

@@ -22,6 +22,11 @@ public partial class _Default : System.Web.UI.Page
         }
     }
 
+    public void search_click()
+    {
+        String Product = Request["search"].ToString(); 
+        Response.Redirect("ViewCats.aspx?searchProduct='"+Product+"'");
+    }
     private void BindImage()
     {
         using (SqlConnection con = new SqlConnection(Connection))
@@ -96,5 +101,10 @@ public partial class _Default : System.Web.UI.Page
         {
             Response.Redirect("~/Login.aspx");
         }
+    }
+
+    protected void searchbtn_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("ViewCats.aspx?searchProduct="+search.Text);
     }
 }

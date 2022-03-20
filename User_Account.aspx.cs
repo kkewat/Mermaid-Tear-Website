@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Collections;
 using System.Configuration;
+using System.Text;
 using System.Data;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,9 +66,13 @@ public partial class User_Account : System.Web.UI.Page
     protected void changepsd_Click(object sender, EventArgs e)
     {
         String Name = Session["Username"].ToString();
+        byte[] encData_byte = new byte[npsswd.Text.Length];
+        encData_byte = System.Text.Encoding.UTF8.GetBytes(npsswd.Text);
+        string ePassword = Convert.ToBase64String(encData_byte);
         SqlConnection con = new SqlConnection(Connection);
-        SqlCommand cmd = new SqlCommand("update User_detail set Password ='" + npsswd.Text + "' where Username='" + Name + "'",con);
+        SqlCommand cmd = new SqlCommand("update User_detail set Password ='" + ePassword + "' where Username='" + Name + "'",con);
         con.Open();
+        cmd.ExecuteNonQuery();
         Response.Write("<script>alert('Password changed Successfully')</script>");
         con.Close();
         npsswd.Text = null;

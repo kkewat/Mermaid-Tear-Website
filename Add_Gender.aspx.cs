@@ -14,7 +14,11 @@ public partial class Add_Gender : System.Web.UI.Page
     public static String Connection = ConfigurationManager.ConnectionStrings["Dbconnection"].ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
     {
-        BindGenderRepeater();
+        if (!IsPostBack)
+        {
+            BindGenderRepeater();
+
+        }
     }
     protected void Delete_Click(object sender, EventArgs e)
     {
@@ -61,7 +65,7 @@ public partial class Add_Gender : System.Web.UI.Page
         Response.Write(Label2.Text = "Gender " + Name + " Added Successfully");
         Gendername.Text = string.Empty;
         con.Close();
-
+        Gendername.Text = null;
         BindGenderRepeater();
     }
 }

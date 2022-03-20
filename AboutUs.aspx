@@ -15,18 +15,20 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
+    <div style="padding-top:150px">
     <div class="container">
         <div class="row">
         <div class="col-md-12">
             <div class="form-contol">
-                <div class="Control-label">
+                <div class="Control-label"><b style="font-family:Algerian;font-size:xx-large;background-color:khaki">
                     <asp:Label ID="Label1" runat="server" Text="This is an demo website . Created for the purpose of college project and all the images and items are referred from google or the respected brands or websites and we dont have any copyright over it."></asp:Label>
+                </b>
                 </div>
             </div><br /><br />
             <div class="form-contol">
-                <div class="Control-label">
-                    <asp:Label ID="Label2" CssClass="glyphicon glyphicon-envelope" runat="server" Text="This website is for online jewellery shopping website and also no items booked will ever be delivered to you. Thankyou happy Browsing"></asp:Label>
+                <div class="Control-label"><b style="font-family:Algerian;font-size:xx-large;background-color:khaki">
+                    <asp:Label ID="Label2" runat="server" Text="This website is for online jewellery shopping website and also no items booked will ever be delivered to you. Thankyou happy Browsing"></asp:Label>
+                    </b>
                 </div><br /><br />
             </div>
         </div>

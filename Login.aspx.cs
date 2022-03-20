@@ -26,12 +26,12 @@ public partial class Login : System.Web.UI.Page
 
     protected void login_Click(object sender, EventArgs e)
     {
-        string Username, Password;
+        string Username, Password,trimmed;
         Username = username.Text;
         Password = password.Text;
-
-        byte[] encData_byte = new byte[Password.Length];
-        encData_byte = System.Text.Encoding.UTF8.GetBytes(Password);
+        trimmed = String.Concat(Password.Where(c => !Char.IsWhiteSpace(c)));
+        byte[] encData_byte = new byte[trimmed.Length];
+        encData_byte = System.Text.Encoding.UTF8.GetBytes(trimmed);
         string ePassword = Convert.ToBase64String(encData_byte);
         SqlConnection con = new SqlConnection(Connection);
         SqlCommand cmd = new SqlCommand(@"SELECT [Username]

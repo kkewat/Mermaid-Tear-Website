@@ -9,7 +9,10 @@ public partial class AdminMasterPage : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (Session["Username"] == null)
+        {
+            Response.Redirect("Login.aspx");
+        }
     }
 
     protected void Adminlogoutbtn_Click(object sender, EventArgs e)
@@ -17,5 +20,10 @@ public partial class AdminMasterPage : System.Web.UI.MasterPage
         
         Response.Redirect("Default.aspx");
         //Session["Username"] = null;
+    }
+
+    protected void searchbtn_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("AdminViewCats.aspx?searchProduct=" + search.Text);
     }
 }

@@ -19,7 +19,7 @@
     <h1>Login</h1>
     <br/><br />
     USERNAME : <asp:TextBox ID="username" runat="server" ></asp:TextBox><br />
-    PASSWORD : <asp:TextBox ID="password" TextMode="Password" runat="server" ></asp:TextBox><br /><br />
+    PASSWORD : <asp:TextBox ID="password" TextMode="Password" runat="server" MaxLength="12" ></asp:TextBox><br /><br />
         <asp:CheckBox ID="Remember_me" runat="server" Text="Remember me" /><br />
         <asp:Button ID="login" CssClass="btn btn-success" runat="server" Text="Login" OnClick="login_Click" /><br/><br />
         <asp:HyperLink ID="frgtpassword" runat="server" NavigateUrl="~/Forgot_Password.aspx"><b>Forgot Password</b></asp:HyperLink><br />

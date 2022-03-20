@@ -52,6 +52,10 @@ public partial class UserHomePage : System.Web.UI.Page
 
         }
     }
+    protected void searchbtn_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("ViewCats.aspx?searchProduct=" + search.Text);
+    }
     protected string GetActiveImage(int ItemIndex)
     {
         if (ItemIndex == 0)
@@ -103,9 +107,10 @@ public partial class UserHomePage : System.Web.UI.Page
     }
     public void BindCartNum()
     {
-        String name = Session["Username"].ToString();
+        //String name = Session["Username"].ToString();
         if (Session["Username"] != null)
         {
+            String name = Session["Username"].ToString();
             string stmt = "SELECT COUNT(*) FROM Cart  where User_Name = '"+name+"'";
             int count = 0;
 

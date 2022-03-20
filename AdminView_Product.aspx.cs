@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class View_Product : System.Web.UI.Page
+public partial class AdminView_Product_aspx : System.Web.UI.Page
 {
     public static String Connection = ConfigurationManager.ConnectionStrings["Dbconnection"].ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
@@ -112,7 +112,7 @@ public partial class View_Product : System.Web.UI.Page
 
             using (SqlConnection con = new SqlConnection(Connection))
             {
-                using (SqlCommand cmd = new SqlCommand("select A.*,B.*,C.* from viewSize A inner join Products_Detail B on A.product_id = B.Product_id inner join Product_Size C on A.size = C.Size_id where A.product_id='" + PID + "'", con))
+                using (SqlCommand cmd = new SqlCommand("select A.*,B.*,C.* from viewSize A inner join Products_Detail B on A.product_id = B.Product_id inner join Product_Size C on A.size = C.Size_id where A.product_id='"+ PID +"'", con))
                 {
                     cmd.CommandType = CommandType.Text;
                     using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
@@ -125,7 +125,7 @@ public partial class View_Product : System.Web.UI.Page
                         rblSize.DataBind();
                     }
                 }
-                using (SqlCommand cmd = new SqlCommand("select A.*,B.*,C.* from viewWeight A inner join Products_Detail B on A.product_id = B.Product_id inner join Gross_Weight C on A.weight = C.Weight_id where A.product_id='"+ PID+"'", con))
+                using (SqlCommand cmd = new SqlCommand("select A.*,B.*,C.* from viewWeight A inner join Products_Detail B on A.product_id = B.Product_id inner join Gross_Weight C on A.weight = C.Weight_id where A.product_id='"+ PID +"'", con))
                 {
                     cmd.CommandType = CommandType.Text;
                     using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
@@ -162,7 +162,7 @@ public partial class View_Product : System.Web.UI.Page
                 {
                     var rbList = item.FindControl("rblSize") as RadioButtonList;
                     SelectedSize = rbList.SelectedValue;
-                    SelectedSizeName = rbList.SelectedItem.Text ;
+                    SelectedSizeName = rbList.SelectedItem.Text;
 
                     var rbList1 = item.FindControl("rblWeight") as RadioButtonList;
                     SelectedWeight = rbList1.SelectedValue;
@@ -175,21 +175,21 @@ public partial class View_Product : System.Web.UI.Page
             if (SelectedSize != "")
             {
                 int PID = Convert.ToInt32(Request.QueryString["Product_id"]);
-                String P_Name, Image, url, Price, extension,img;
+                String P_Name, Image, url, Price, extension, img;
 
                 SqlConnection con = new SqlConnection(Connection);
-                SqlCommand cmd1 = new SqlCommand("Select A.*,B.* from Products_Detail A inner join Product_Images B on B.Product_id = A.Product_id Where A.Product_id ='" + PID+"'", con);
+                SqlCommand cmd1 = new SqlCommand("Select A.*,B.* from Products_Detail A inner join Product_Images B on B.Product_id = A.Product_id Where A.Product_id ='" + PID + "'", con);
                 con.Open();
                 SqlDataReader reader = cmd1.ExecuteReader();
 
                 reader.Read();
-                    P_Name = reader["Product_Name"].ToString();
-                    Image = reader["Name"].ToString();
-                    extension = reader["Extension"].ToString();
-                    
-                    img = @"Images\Product_Images\"+PID.ToString()+@"\";
+                P_Name = reader["Product_Name"].ToString();
+                Image = reader["Name"].ToString();
+                extension = reader["Extension"].ToString();
 
-                url = String.Concat(img,Image, extension);
+                img = @"Images\Product_Images\" + PID.ToString() + @"\";
+
+                url = String.Concat(img, Image, extension);
 
                 Price = reader["Product_SellingPrice"].ToString();
                 reader.Close();
@@ -206,15 +206,15 @@ public partial class View_Product : System.Web.UI.Page
            ,[Quantity])
      VALUES
            ('" + name + "','" + PID + "','" + P_Name + "','" + url + "','" + SelectedSizeName + "','" + SelectedWeightName + "','" + Price + "','1')", con);
-                
-                   con.Open();
-                    cmd.ExecuteNonQuery();
-                    Response.Write("<script>alert('Added to Cart Successfully')</script>");
-                    con.Close();
-                
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+                Response.Write("<script>alert('Added to Cart Successfully')</script>");
+                con.Close();
+
             }
         }
-        else if(Session["Username"] == null)
+        else if (Session["Username"] == null)
         {
             Response.Write("<script>alert('Unable to Add product. Login First to add to cart')</script>");
             Response.Redirect("Login.aspx");
@@ -224,11 +224,11 @@ public partial class View_Product : System.Web.UI.Page
     protected void fedbacck_Click(object sender, EventArgs e)
     {
         int PID = Convert.ToInt32(Request.QueryString["Product_id"]);
-        if(Session["Username"] != null)
+        if (Session["Username"] != null)
         {
             String Name = Session["Username"].ToString();
             SqlConnection con = new SqlConnection(Connection);
-            SqlCommand cmd = new SqlCommand("insert into Feedback values ('"+Name+"','"+PID+"','"+feedback.Text+"')", con);
+            SqlCommand cmd = new SqlCommand("insert into Feedback values ('" + Name + "','" + PID + "','" + feedback.Text + "')", con);
             con.Open();
             cmd.ExecuteNonQuery();
             con.Close();

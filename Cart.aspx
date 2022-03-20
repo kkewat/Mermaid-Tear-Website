@@ -7,7 +7,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
-    <div class="container rounded cart" style="position: fixed; left: 2px; right: 2px">
+    <div class="container rounded cart" style="left: 2px; right: 2px">
         <div class="d-flex flex-row align-items-center"><i class="fa fa-long-arrow-left"></i><a href="Products.aspx"><span class="ml-2 glyphicon glyphicon-arrow-left">Continue Shopping</span></a></div>
         <hr style="border-width:thick" />
         <asp:Repeater ID="CartDatarptr" runat="server">

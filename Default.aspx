@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" EnableEventValidation="false" %>
 
 <!DOCTYPE html>
 
@@ -81,11 +81,13 @@
                         </div>
                         <form class="navbar-form navbar-left" action="/action_page.php">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search" name="search" />
+                                <%--<input id="search" type="text" class="form-control" placeholder="Search" name="search" />--%>
+                                <asp:TextBox ID="search" runat="server" class="form-control" placeholder="Search" ></asp:TextBox>
                                 <div class="input-group-btn">
-                                    <button class="btn btn-default" type="submit">
+                                    <%--<button id="searchbtn" runat="server" class="btn btn-default" type="submit" onclick="search_click">
                                         <i class="glyphicon glyphicon-search"></i>
-                                    </button>
+                                    </button>--%>
+                                    <asp:LinkButton ID="searchbtn" runat="server" class="btn btn-default" OnClick="searchbtn_Click" ><i class="glyphicon glyphicon-search"></i></asp:LinkButton>
                                 </div>
                             </div>
                         </form>

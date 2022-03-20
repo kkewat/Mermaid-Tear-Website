@@ -78,5 +78,6 @@ public partial class User_Order : System.Web.UI.Page
             }
         }
         BindOrders();
+        Response.Redirect("User_Order.aspx");
     }
 }

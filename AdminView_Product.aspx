@@ -1,9 +1,9 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/User.master" AutoEventWireup="true" CodeFile="View_Product.aspx.cs" Inherits="View_Product" EnableEventValidation="false" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminMasterPage.master" AutoEventWireup="true" CodeFile="AdminView_Product.aspx.cs" Inherits="AdminView_Product_aspx" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <div style="padding-top:50px">
+<div style="padding-top:50px">
         <div class="col-md-5">
             <div style="max-width:480px" class="thumbnail">
             <%--Products Image Slider Starts  --%>

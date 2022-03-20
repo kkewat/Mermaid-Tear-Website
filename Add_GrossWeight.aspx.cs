@@ -215,6 +215,7 @@ public partial class Add_GrossWeight : System.Web.UI.Page
         SubType.Items.FindByValue("0").Selected = true;
 
         BindWeightRepeater();
+        weight.Text = null;
     }
 
     protected void Delete_Click(object sender, EventArgs e)

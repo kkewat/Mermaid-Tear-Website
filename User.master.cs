@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,6 +10,7 @@ using System.Web.UI.WebControls;
 
 public partial class User : System.Web.UI.MasterPage
 {
+    public static String Connection = ConfigurationManager.ConnectionStrings["Dbconnection"].ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
     {
         BindCartNum();
@@ -25,7 +29,26 @@ public partial class User : System.Web.UI.MasterPage
     }
     public void BindCartNum()
     {
-        
+        if (Session["Username"] != null)
+        {
+            String name = Session["Username"].ToString();
+            string stmt = "SELECT COUNT(*) FROM Cart  where User_Name = '" + name + "'";
+            int count = 0;
+
+            using (SqlConnection con = new SqlConnection(Connection))
+            {
+                using (SqlCommand cmdCount = new SqlCommand(stmt, con))
+                {
+                    con.Open();
+                    count = (int)cmdCount.ExecuteScalar();
+                }
+            }
+            num.InnerText = count.ToString();
+        }
+        else
+        {
+            num.InnerText = 0.ToString();
+        }
     }
     protected void logoutbtn_Click(object sender, EventArgs e)
     {
@@ -34,6 +57,10 @@ public partial class User : System.Web.UI.MasterPage
         Session["Username"] = null;
     }
 
+    protected void searchbtn_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("ViewCats.aspx?searchProduct=" + search.Text);
+    }
     protected void loginbtn_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/Login.aspx");

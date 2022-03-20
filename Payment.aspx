@@ -53,6 +53,7 @@
                 </asp:Repeater>
                 <b>
                     <asp:Label ID="GrandPrice" runat="server" Text="Grand Total : RS. " Font-Size="Medium"></asp:Label></b>
+                <asp:Label ID="TPrice" runat="server" Text="" Visible="false" ></asp:Label>
             </div>
             <div class="col-md-1">
 
@@ -103,6 +104,12 @@
                             <asp:TextBox ID="Country" runat="server"></asp:TextBox><br />
                         </div>
                     </div><br />
+                    <div class="form-group">
+                        <asp:Label ID="Label9" CssClass="col-md-2 control-label" runat="server" Text="E-Mail"></asp:Label>
+                        <div class="col-md-3">
+                            <asp:TextBox ID="E_Mail" TextMode="Email" runat="server"></asp:TextBox><br />
+                        </div>
+                    </div><br />
                     <%--Name:<asp:TextBox ID="Name1" CssClass="form-control" runat="server"></asp:TextBox><br />
                     Phone number :<asp:TextBox ID="Number1" TextMode="Phone" runat="server"></asp:TextBox><br />
                     Address:<asp:TextBox ID="Address1" runat="server"></asp:TextBox><br />
@@ -114,12 +121,14 @@
                     <hr />
                 </div>
                 <div>
-                    <asp:RadioButton ID="rbOffline" runat="server" GroupName="Payment_Method" Text="Offline" />
-                    <asp:RadioButton ID="rbOnline" runat="server" GroupName="Payment_Method" Text="Online" />
+                    <asp:RadioButton ID="rbOffline" runat="server" GroupName="Payment_Method" Text="Offline" AutoPostBack="true" /><br />
+                    <asp:RadioButton ID="rbOnline" runat="server" GroupName="Payment_Method" Text="Online" AutoPostBack="true" /><br />
 
-                </div>
-                <asp:Button ID="Buy" CssClass="btn btn-success" runat="server" Text="Button" OnClick="Buy_Click" />
-            
+                </div><br />
+                <asp:Button ID="Buy" CssClass="btn btn-success" runat="server" Text="Button" OnClick="Buy_Click" Visible="false" /><br />
+                <asp:Label ID="info" Style="background-color: firebrick;color:black;font-weight:800;font-size:16px" runat="server" Visible="false" Text="This Is a demo Website and no products are real and not deliverable and the Payment Gateway is for Demo purpose only but Real money will be Transferred from Bank. So think Before making payment."></asp:Label><br />
+                <asp:Button ID="Buynow" style=" width: 150px;word-wrap:break-word; background-color: #25D721; text-align: center; font-weight: 800; padding: 11px 0px; color: white; font-size: 12px; display: inline-block; text-decoration: none; " runat="server" Text="Buy Now " OnClick="Buynow_Click" Visible="false" />
+                <%--<div> <a style=" width: 150px; background-color: #25D721; text-align: center; font-weight: 800; padding: 11px 0px; color: white; font-size: 12px; display: inline-block; text-decoration: none; " href='https://pmny.in/OrlqdHW565Kw' > Buy Now </a> </div>--%>
             </div>
         </div>
     </div>

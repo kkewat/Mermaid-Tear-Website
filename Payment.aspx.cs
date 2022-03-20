@@ -25,24 +25,38 @@ public partial class Payment : System.Web.UI.Page
                 string s = Price.Text;
                 total += Convert.ToDecimal(s);
             }
-            GrandPrice.Text += total.ToString();
+            GrandPrice.Text = total.ToString();
 
         }
         else
         {
             Response.Write("<script>alert('Login To Add Product To Cart')</script>");
         }
+
+            if(rbOffline.Checked==true)
+            {
+                Buy.Visible = true;
+                Buynow.Visible = false;
+                info.Visible = false;
+            }
+            else if(rbOnline.Checked==true)
+            {
+                Buy.Visible = false;    
+                Buynow.Visible = true;
+                info.Visible = true;
+            }
+        
     }
 
     private void BindProductDetail()
     {
         String Name = Session["Username"].ToString();
-        string id="";
+        string id = "";
         int[] a = Session["Cart"] as int[];
-        int i=0;
-        foreach(int n in a)
+        int i = 0;
+        foreach (int n in a)
         {
-            if(i>0 & i<a.Length)
+            if (i > 0 & i < a.Length)
             {
                 id += ',';
             }
@@ -123,8 +137,8 @@ public partial class Payment : System.Web.UI.Page
         string currentDate = dt.ToString("dd MMMM yyyy");
         string currentTime = dt.ToString("hh:mm:ss tt");
 
-        string Payment_Type = string.Empty;
-        string Status = string.Empty;
+        string Payment_Type = "Offline";
+        string Status = "Pending";
 
         foreach (RepeaterItem item in CartDatarptr.Items)
         {
@@ -137,17 +151,6 @@ public partial class Payment : System.Web.UI.Page
                 Label WG = ((Label)item.FindControl("we1")) as Label;
                 Label PR = ((Label)item.FindControl("pr1")) as Label;
                 Label QN = ((Label)item.FindControl("qu1")) as Label;
-
-                if(rbOffline.Checked)
-                {
-                    Payment_Type = "Offline";
-                    Status = "Pending";
-                }
-                else if(rbOnline.Checked)
-                {
-                    Payment_Type = "Online";
-                    Status = "Paid";
-                }
 
                 SqlConnection con = new SqlConnection(Connection);
                 SqlCommand cmd = new SqlCommand(@"INSERT INTO [Order]
@@ -169,15 +172,17 @@ public partial class Payment : System.Web.UI.Page
                    ,[Time]
                    ,[Order_Status])
                    VALUES
-                   ('" + PI.Text + "','" + Name + "','" + PN.Text + "','" + SZ.Text + "','" + WG.Text + "','" + QN.Text + "','" + PR.Text + "','" + Address.Text + "','" + City.Text + "','" + State.Text + "','" + Pincode.Text + "','" + Country.Text + "','" + Payment_Type + "','"+ Status +"','" + currentDate + "','" + currentTime + "','Delivering')", con);
+                   ('" + PI.Text + "','" + Name + "','" + PN.Text + "','" + SZ.Text + "','" + WG.Text + "','" + QN.Text + "','" + PR.Text + "','" + Address.Text + "','" + City.Text + "','" + State.Text + "','" + Pincode.Text + "','" + Country.Text + "','" + Payment_Type + "','" + Status + "','" + currentDate + "','" + currentTime + "','Delivering')", con);
 
                 con.Open();
+                SqlCommand cmd1 = new SqlCommand("update Stocks set Quantity=Quantity-'" + Convert.ToInt32(QN.Text) + "' where Product_id='" + Convert.ToInt32(PI.Text) + "'", con);
                 cmd.ExecuteNonQuery();
-                Response.Write("<script>alert(' Order Placed Successfully ')</script>");
-                con.Close();              
+                con.Close();
             }
         }
+        Response.Write("<script>alert(' Order Placed Successfully ')</script>");
         delEmpty();
+        Response.Redirect("Cart.aspx");
     }
 
     private void delEmpty()
@@ -200,5 +205,61 @@ public partial class Payment : System.Web.UI.Page
         cmd.ExecuteNonQuery();
         con.Close();
         Response.Redirect("UserHomePage.aspx");
+    }
+
+    protected void Buynow_Click(object sender, EventArgs e)
+    {
+        String Name = Session["Username"].ToString();
+        DateTime dt = DateTime.Now;                //assigns date and time
+        string currentDate = dt.ToString("dd MMMM yyyy");
+        string currentTime = dt.ToString("hh:mm:ss tt");
+
+        string Payment_Type = "Online";
+        string Status = "Paid";
+
+        foreach (RepeaterItem item in CartDatarptr.Items)
+        {
+            if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
+            {
+                Label PI = ((Label)item.FindControl("pi1")) as Label;
+                Label PN = ((Label)item.FindControl("pn1")) as Label;
+                Label UR = ((Label)item.FindControl("iu1")) as Label;
+                Label SZ = ((Label)item.FindControl("si1")) as Label;
+                Label WG = ((Label)item.FindControl("we1")) as Label;
+                Label PR = ((Label)item.FindControl("pr1")) as Label;
+                Label QN = ((Label)item.FindControl("qu1")) as Label;
+
+                SqlConnection con = new SqlConnection(Connection);
+                SqlCommand cmd = new SqlCommand(@"INSERT INTO [Order]
+                   ([Product_id]
+                   ,[User_Name]
+                   ,[Product_Name]
+                   ,[Size]
+                   ,[Weight]
+                   ,[Quantity]
+                   ,[Price]
+                   ,[Address]
+                   ,[City]
+                   ,[State]
+                   ,[Pincode]
+                   ,[Country]
+                   ,[Payment_Type]
+                   ,[Payment_Status]
+                   ,[Date]
+                   ,[Time]
+                   ,[Order_Status])
+                   VALUES
+                   ('" + PI.Text + "','" + Name + "','" + PN.Text + "','" + SZ.Text + "','" + WG.Text + "','" + QN.Text + "','" + PR.Text + "','" + Address.Text + "','" + City.Text + "','" + State.Text + "','" + Pincode.Text + "','" + Country.Text + "','" + Payment_Type + "','" + Status + "','" + currentDate + "','" + currentTime + "','Delivering')", con);
+
+                con.Open();
+                SqlCommand cmd1 = new SqlCommand("update Stocks set Quantity=Quantity-'" + Convert.ToInt32(QN.Text) + "' where Product_id='" + Convert.ToInt32(PI.Text) + "'", con);
+                cmd.ExecuteNonQuery();
+                //Response.Write("<script>alert(' Order Placed Successfully ')</script>");
+                con.Close();
+                
+            }
+        }
+        Response.Redirect("https://pmny.in/OrlqdHW565Kw");
+        delEmpty();
     }
 }

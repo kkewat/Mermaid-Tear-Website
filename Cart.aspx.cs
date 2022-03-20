@@ -42,11 +42,23 @@ public partial class Cart : System.Web.UI.Page
             else
             {
                 Response.Write("<script>alert('Login To Add Product To Cart')</script>");
+                Response.Redirect("Login.aspx");
              }
+
+            //delEmpty();
         }
     }
 
-
+    //private void delEmpty()
+    //{
+    //    String Name = Session["Username"].ToString();
+    //    SqlConnection con = new SqlConnection(Connection);
+    //    SqlCommand cmd = new SqlCommand("delete from Temp_Cart Where User_Name = '" + Name + "'", con);
+    //    con.Open();
+    //    cmd.ExecuteNonQuery();
+    //    con.Close();
+    //    Response.Redirect("UserHomePage.aspx");
+    //}
 
     private void BindProductDetail()
     {

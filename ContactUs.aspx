@@ -13,20 +13,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body style="background-color:#1A1A1D">
     <form id="form1" runat="server">
     <center>
-    <div class="container">
+    <div class="container" style="padding-top:150px">
         <div class="row">
         <div class="col-md-12">
             <div class="form-contol">
                 <div class="Control-label">
-                    <asp:Label ID="Label1" CssClass="glyphicon glyphicon-phone" runat="server" Text="9167389699"></asp:Label>
+                    <asp:Label ID="Label1" CssClass="glyphicon glyphicon-phone" runat="server" Text="  9167389699" style="background-color:#950740;font-family:Jokerman;font-size:25px"></asp:Label>
                 </div>
             </div><br /><br />
             <div class="form-contol">
                 <div class="Control-label">
-                    <asp:Label ID="Label2" CssClass="glyphicon glyphicon-envelope" runat="server" Text="kewatkunal405@gmail.com"></asp:Label>
+                    <asp:Label ID="Label2" CssClass="glyphicon glyphicon-envelope" runat="server" style="background-color:#950740;font-family:Jokerman;font-size:25px" Text="  kewatkunal405@gmail.com"></asp:Label>
                 </div><br /><br />
             </div>
         </div>

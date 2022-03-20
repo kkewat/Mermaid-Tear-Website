@@ -17,6 +17,7 @@ public partial class Add_Categories : System.Web.UI.Page
         {
             BindRepeaterCategory();
         }
+        
     }
 
     private void BindRepeaterCategory()
@@ -49,6 +50,7 @@ public partial class Add_Categories : System.Web.UI.Page
             con.Close();
 
         BindRepeaterCategory();
+        Catname.Text = null;
     }
     protected void Delete_Click(object sender, EventArgs e)
     {
@@ -60,7 +62,7 @@ public partial class Add_Categories : System.Web.UI.Page
             {
                 con.Open();
                 cmd.ExecuteNonQuery();
-                Response.Write("<Script>alert('Brand Deleted Successfully')</Script>");
+                Response.Write("<Script>alert('Category Deleted Successfully')</Script>");
             }
         }
         BindRepeaterCategory();
