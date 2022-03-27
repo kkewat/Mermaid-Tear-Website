@@ -3,8 +3,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div>
-        <asp:linkbutton ID="emptyorder" runat="server" OnClick="emptyorder_Click"><span aria-hidden="true" class="glyphicon glyphicon-back-arrow"> Continue Shopping </span></asp:linkbutton>
+    <div style="border-spacing:10px;margin-left:20px">
+        <asp:linkbutton ID="emptyorder" runat="server" OnClick="emptyorder_Click"><span aria-hidden="true" class="glyphicon glyphicon-arrow-left" style="font-size:18px;word-spacing:1px;"> Continue-Shopping </span></asp:linkbutton>
     </div>
     <div class="container">
         <div></div>

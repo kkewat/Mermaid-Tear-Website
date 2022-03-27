@@ -30,39 +30,53 @@ public partial class EditCategory : System.Web.UI.Page
     }
     private void ViewDetail()
     {
-
-        int CID = Convert.ToInt32(Request.QueryString["Category_id"]);
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand cmd = new SqlCommand("Select * from Category Where Category_id ='" + CID + "'", con))
-            {
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
 
-                if (reader.Read())
+            int CID = Convert.ToInt32(Request.QueryString["Category_id"]);
+            using (SqlConnection con = new SqlConnection(Connection))
+            {
+                using (SqlCommand cmd = new SqlCommand("Select * from Category Where Category_id ='" + CID + "'", con))
                 {
-                    txtID.Text = CID.ToString();
-                    txtName.Text = reader["Category_Name"].ToString();
-                    reader.Close();
-                    con.Close();
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        txtID.Text = CID.ToString();
+                        txtName.Text = reader["Category_Name"].ToString();
+                        reader.Close();
+                        con.Close();
+                    }
                 }
             }
+        }
+        catch (Exception ex)
+        {
+            Response.Redirect("error.aspx");
         }
     }
     protected void UpdateCat_Click(object sender, EventArgs e)
     {
-        int CID = Convert.ToInt32(Request.QueryString["Category_id"]);
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand Cmd = new SqlCommand("update Category set Category_Name ='" + txtUpdateCatName.Text + "' where Category_id='" + CID + "'", con))
+            int CID = Convert.ToInt32(Request.QueryString["Category_id"]);
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                con.Open();
-                Cmd.ExecuteNonQuery();
-                Response.Write("<Script>alert('Category Name Updated Successfully')</Script>");
-                txtUpdateCatName.Text = null;
-                con.Close();
-                ViewDetail();
+                using (SqlCommand Cmd = new SqlCommand("update Category set Category_Name ='" + txtUpdateCatName.Text + "' where Category_id='" + CID + "'", con))
+                {
+                    con.Open();
+                    Cmd.ExecuteNonQuery();
+                    Response.Write("<Script>alert('Category Name Updated Successfully')</Script>");
+                    txtUpdateCatName.Text = null;
+                    con.Close();
+                    ViewDetail();
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            Response.Redirect("error.aspx");
         }
     }
 }

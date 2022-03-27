@@ -21,49 +21,69 @@ public partial class Add_ProductType : System.Web.UI.Page
 
     private void BindRepeaterType()
     {
-        SqlConnection con = new SqlConnection(Connection);
-        using (SqlCommand cmd = new SqlCommand("Select * from Product_Type", con))
+        try
         {
-            using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+            SqlConnection con = new SqlConnection(Connection);
+            using (SqlCommand cmd = new SqlCommand("Select * from Product_Type", con))
             {
-                DataTable dt = new DataTable();
-                sda.Fill(dt);
-                PTypeRepeater.DataSource = dt;
-                PTypeRepeater.DataBind();
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    PTypeRepeater.DataSource = dt;
+                    PTypeRepeater.DataBind();
+                }
             }
+        }
+        catch(Exception ex)
+        {
+            Response.Redirect("error.aspx");
         }
     }
 
     protected void AddPType_Click(object sender, EventArgs e)
     {
-        string Name = PType.Text;
-        SqlConnection con = new SqlConnection(Connection);
-        SqlCommand cmd = new SqlCommand(@"INSERT INTO Product_Type
+        try
+        {
+            string Name = PType.Text;
+            SqlConnection con = new SqlConnection(Connection);
+            SqlCommand cmd = new SqlCommand(@"INSERT INTO Product_Type
             ([Product_Type_Name]) 
             VALUES
             ('" + Name + "')", con);
-        con.Open();
-        cmd.ExecuteNonQuery();
+            con.Open();
+            cmd.ExecuteNonQuery();
 
-        Response.Write(Label2.Text = "Product Type " + Name + " Added Successfully");
-        PType.Text = string.Empty;
-        con.Close();
-        //Brandname.Focus();
-        BindRepeaterType();
+            Response.Write(Label2.Text = "Product Type " + Name + " Added Successfully");
+            PType.Text = string.Empty;
+            con.Close();
+            //Brandname.Focus();
+            BindRepeaterType();
+        }
+        catch(Exception ex)
+        {
+            Response.Redirect("error.aspx");
+        }
     }
     protected void Delete_Click(object sender, EventArgs e)
     {
-        RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
-        Label bid = ((Label)row.FindControl("id")) as Label;
-        using (SqlConnection con = new SqlConnection(Connection))
-        {
-            using (SqlCommand cmd = new SqlCommand(" delete from Product_Type Where ProductType_id = '" + bid.Text + "' ", con))
+        try {
+            RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
+            Label bid = ((Label)row.FindControl("id")) as Label;
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                con.Open();
-                cmd.ExecuteNonQuery();
-                Response.Write("<Script>alert('Row Deleted Successfully')</Script>");
+                using (SqlCommand cmd = new SqlCommand(" delete from Product_Type Where ProductType_id = '" + bid.Text + "' ", con))
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    Response.Write("<Script>alert('Row Deleted Successfully')</Script>");
+                }
             }
+            BindRepeaterType();
         }
-        BindRepeaterType();
+        catch(Exception ex)
+        {
+            Response.Redirect("error.aspx");
+        }
     }
 }

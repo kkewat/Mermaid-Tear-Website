@@ -11,7 +11,8 @@
         <asp:Label ID="Label1" CssClass="col-md-2 control-label" runat="server" Text="Category Name"></asp:Label>
         <div class="col-md-3">
             <asp:TextBox ID="Catname" CssClass="form-control"  runat="server"></asp:TextBox><br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*Add Category Name" ControlToValidate="Catname" CssClass="text-danger" ForeColor="Red"></asp:RequiredFieldValidator>
+            <asp:Label ID="err" runat="server" Text="" CssClass="text-danger" ForeColor="Red"></asp:Label>
+            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*Add Category Name" ControlToValidate="Catname" CssClass="text-danger" ForeColor="Red"></asp:RequiredFieldValidator>--%>
         </div>
     </div>
 

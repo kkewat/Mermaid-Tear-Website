@@ -21,58 +21,79 @@ public partial class Add_Brand : System.Web.UI.Page
 
     private void BindRepeaterBrand()
     {
-        SqlConnection con = new SqlConnection(Connection);
-        using (SqlCommand cmd = new SqlCommand("Select * from Brand", con))
+        try
         {
-            using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+            SqlConnection con = new SqlConnection(Connection);
+            using (SqlCommand cmd = new SqlCommand("Select * from Brand", con))
             {
-                DataTable dt = new DataTable();
-                sda.Fill(dt);
-                BrandRepeater.DataSource = dt;
-                BrandRepeater.DataBind();
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    BrandRepeater.DataSource = dt;
+                    BrandRepeater.DataBind();
+                }
             }
+        }
+        catch(Exception ex)
+        {
+            
+            Response.Redirect("error.aspx");
         }
     }
 
     protected void AddBrand_Click(object sender, EventArgs e)
     {
-        if (Brandname.Text != null)
+        try
         {
-            string Name = Brandname.Text;
-            SqlConnection con = new SqlConnection(Connection);
-            SqlCommand cmd = new SqlCommand(@"INSERT INTO Brand
+            if (Brandname.Text != null)
+            {
+                string Name = Brandname.Text;
+                SqlConnection con = new SqlConnection(Connection);
+                SqlCommand cmd = new SqlCommand(@"INSERT INTO Brand
             ([Brand_name]) 
             VALUES
             ('" + Name + "')", con);
-            con.Open();
-            cmd.ExecuteNonQuery();
+                con.Open();
+                cmd.ExecuteNonQuery();
 
-            Response.Write("<script>alert('Brand Added Successfully')</script>");
-            Brandname.Text = string.Empty;
-            con.Close();
-            //Brandname.Focus();
+                Response.Write("<script>alert('Brand Added Successfully')</script>");
+                Brandname.Text = string.Empty;
+                con.Close();
+                //Brandname.Focus();
 
-            BindRepeaterBrand();
+                BindRepeaterBrand();
+            }
+            else
+            {
+                Label2.Text = "<b>Please Enter Brand Name</b>";
+            }
         }
-        else
+        catch(Exception ex)
         {
-            Label2.Text = "<b>Please Enter Brand Name</b>";
+            Response.Redirect("error.aspx");
         }
     }
 
     protected void DeleteBrand_Click(object sender, EventArgs e)
     {
-        RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
-        Label bid = ((Label)row.FindControl("id"))as Label;
-        using (SqlConnection con = new SqlConnection(Connection))
-        {
-            using (SqlCommand cmd = new SqlCommand(" delete from Brand Where Brand_id = '"+bid.Text+"' ",con))
+        try {
+            RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
+            Label bid = ((Label)row.FindControl("id")) as Label;
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                con.Open();
-                cmd.ExecuteNonQuery();
-                Response.Write("<Script>alert('Brand Deleted Successfully')</Script>");
+                using (SqlCommand cmd = new SqlCommand(" delete from Brand Where Brand_id = '" + bid.Text + "' ", con))
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    Response.Write("<Script>alert('Brand Deleted Successfully')</Script>");
+                }
             }
+            BindRepeaterBrand();
         }
-        BindRepeaterBrand();
+        catch(Exception ex)
+        {
+            Response.Redirect("error.aspx");
+        }
     }
 }

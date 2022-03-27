@@ -31,40 +31,56 @@ public partial class Edit_Sub_Cat : System.Web.UI.Page
 
     private void ViewDetail()
     {
-
-        int BID = Convert.ToInt32(Request.QueryString["id"]);
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand cmd = new SqlCommand("Select * from Sub_Category Where Sub_Category_id ='" + BID + "'", con))
-            {
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
 
-                if (reader.Read())
+            int BID = Convert.ToInt32(Request.QueryString["id"]);
+            using (SqlConnection con = new SqlConnection(Connection))
+            {
+                using (SqlCommand cmd = new SqlCommand("Select * from Sub_Category Where Sub_Category_id ='" + BID + "'", con))
                 {
-                    txtID.Text = BID.ToString();
-                    txtName.Text = reader["SubCategory_Name"].ToString();
-                    reader.Close();
-                    con.Close();
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        txtID.Text = BID.ToString();
+                        txtName.Text = reader["SubCategory_Name"].ToString();
+                        reader.Close();
+                        con.Close();
+                    }
                 }
             }
+        }
+        catch (Exception)
+        {
+
+            Response.Redirect("error.aspx");
         }
     }
 
     protected void UpdateSubCat_Click(object sender, EventArgs e)
     {
-        int BID = Convert.ToInt32(Request.QueryString["id"]);
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand Cmd = new SqlCommand("update Sub_Category set SubCategory_Name ='" + txtUpdateSubCatName.Text + "' where Sub_Category_id='" + BID + "'", con))
+            int BID = Convert.ToInt32(Request.QueryString["id"]);
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                con.Open();
-                Cmd.ExecuteNonQuery();
-                Response.Write("<Script>alert('Record Updated Successfully')</Script>");
-                txtUpdateSubCatName.Text = null;
-                con.Close();
-                ViewDetail();
+                using (SqlCommand Cmd = new SqlCommand("update Sub_Category set SubCategory_Name ='" + txtUpdateSubCatName.Text + "' where Sub_Category_id='" + BID + "'", con))
+                {
+                    con.Open();
+                    Cmd.ExecuteNonQuery();
+                    Response.Write("<Script>alert('Record Updated Successfully')</Script>");
+                    txtUpdateSubCatName.Text = null;
+                    con.Close();
+                    ViewDetail();
+                }
             }
+        }
+        catch (Exception)
+        {
+
+            Response.Redirect("error.aspx");
         }
     }
 }

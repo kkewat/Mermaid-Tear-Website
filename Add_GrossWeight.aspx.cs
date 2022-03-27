@@ -15,13 +15,20 @@ public partial class Add_GrossWeight : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            Bindcategory();
-            BindBrand();
-            BindGender();
-            BindType();
-            BindWeightRepeater();
-            SubCat.Enabled = false;
-            SubType.Enabled = false;
+            try
+            {
+                Bindcategory();
+                BindBrand();
+                BindGender();
+                BindType();
+                BindWeightRepeater();
+                SubCat.Enabled = false;
+                SubType.Enabled = false;
+            }
+            catch(Exception ex)
+            {
+                Response.Redirect("error.aspx");
+            }
         }
     }
 
@@ -177,10 +184,12 @@ public partial class Add_GrossWeight : System.Web.UI.Page
 
     protected void weight_enter_Click(object sender, EventArgs e)
     {
-        string Name = weight.Text, bran = brand.SelectedItem.Value, cat = Category.SelectedItem.Value, scat = SubCat.SelectedItem.Value,
-            Gen = Gender.SelectedItem.Value, typ = Type.SelectedItem.Value, stype = SubType.SelectedItem.Value;
-        SqlConnection con = new SqlConnection(Connection);
-        SqlCommand cmd = new SqlCommand(@"INSERT INTO Gross_Weight
+        try
+        {
+            string Name = weight.Text, bran = brand.SelectedItem.Value, cat = Category.SelectedItem.Value, scat = SubCat.SelectedItem.Value,
+                Gen = Gender.SelectedItem.Value, typ = Type.SelectedItem.Value, stype = SubType.SelectedItem.Value;
+            SqlConnection con = new SqlConnection(Connection);
+            SqlCommand cmd = new SqlCommand(@"INSERT INTO Gross_Weight
             ([Weight_Name]
            ,[Brand_id]
            ,[category_id]
@@ -190,47 +199,59 @@ public partial class Add_GrossWeight : System.Web.UI.Page
            ,[product_SubType_id]) 
             VALUES
             ('" + Name + "','" + bran + "','" + cat + "','" + scat + "','" + Gen + "','" + typ + "','" + stype + "')", con);
-        con.Open();
-        cmd.ExecuteNonQuery();
+            con.Open();
+            cmd.ExecuteNonQuery();
 
-        Response.Write("<script>alert('Size added Successfully')</script>");
-        weight.Text = string.Empty;
-        con.Close();
-        brand.ClearSelection();
-        brand.Items.FindByValue("0").Selected = true;
+            Response.Write("<script>alert('Size added Successfully')</script>");
+            weight.Text = string.Empty;
+            con.Close();
+            brand.ClearSelection();
+            brand.Items.FindByValue("0").Selected = true;
 
-        Category.ClearSelection();
-        Category.Items.FindByValue("0").Selected = true;
+            Category.ClearSelection();
+            Category.Items.FindByValue("0").Selected = true;
 
-        SubCat.ClearSelection();
-        SubCat.Items.FindByValue("0").Selected = true;
+            SubCat.ClearSelection();
+            SubCat.Items.FindByValue("0").Selected = true;
 
-        Gender.ClearSelection();
-        Gender.Items.FindByValue("0").Selected = true;
+            Gender.ClearSelection();
+            Gender.Items.FindByValue("0").Selected = true;
 
-        Type.ClearSelection();
-        Type.Items.FindByValue("0").Selected = true;
+            Type.ClearSelection();
+            Type.Items.FindByValue("0").Selected = true;
 
-        SubType.ClearSelection();
-        SubType.Items.FindByValue("0").Selected = true;
+            SubType.ClearSelection();
+            SubType.Items.FindByValue("0").Selected = true;
 
-        BindWeightRepeater();
-        weight.Text = null;
+            BindWeightRepeater();
+            weight.Text = null;
+        }
+        catch(Exception ex)
+        {
+            Response.Redirect("error.aspx");
+        }
     }
 
     protected void Delete_Click(object sender, EventArgs e)
     {
-        RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
-        Label bid = ((Label)row.FindControl("id")) as Label;
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand cmd = new SqlCommand(" delete from Gross_Weight Where Weight_id = '" + bid.Text + "' ", con))
+            RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
+            Label bid = ((Label)row.FindControl("id")) as Label;
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                con.Open();
-                cmd.ExecuteNonQuery();
-                Response.Write("<Script>alert('Gross Weight Deleted Successfully')</Script>");
+                using (SqlCommand cmd = new SqlCommand(" delete from Gross_Weight Where Weight_id = '" + bid.Text + "' ", con))
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    Response.Write("<Script>alert('Gross Weight Deleted Successfully')</Script>");
+                }
             }
+            BindWeightRepeater();
         }
-        BindWeightRepeater();
+        catch(Exception ex)
+        {
+            Response.Redirect("error.aspx");
+        }
     }
 }

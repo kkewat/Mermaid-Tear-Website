@@ -31,39 +31,55 @@ public partial class Edit_PType : System.Web.UI.Page
 
     private void ViewDetail()
     {
-
-        int GID = Convert.ToInt32(Request.QueryString["Type_id"]);
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand cmd = new SqlCommand("Select * from Product_Type Where ProductType_id ='" + GID + "'", con))
-            {
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
 
-                if (reader.Read())
+            int GID = Convert.ToInt32(Request.QueryString["Type_id"]);
+            using (SqlConnection con = new SqlConnection(Connection))
+            {
+                using (SqlCommand cmd = new SqlCommand("Select * from Product_Type Where ProductType_id ='" + GID + "'", con))
                 {
-                    txtID.Text = GID.ToString();
-                    txtName.Text = reader["Product_Type_Name"].ToString();
-                    reader.Close();
-                    con.Close();
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        txtID.Text = GID.ToString();
+                        txtName.Text = reader["Product_Type_Name"].ToString();
+                        reader.Close();
+                        con.Close();
+                    }
                 }
             }
+        }
+        catch (Exception)
+        {
+
+            Response.Redirect("error.aspx");
         }
     }
     protected void UpdatePType_Click(object sender, EventArgs e)
     {
-        int GID = Convert.ToInt32(Request.QueryString["Type_id"]);
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand Cmd = new SqlCommand("update Product_Type set Product_Type_Name ='" + txtUpdatePTypeName.Text + "' where ProductType_id='" + GID + "'", con))
+            int GID = Convert.ToInt32(Request.QueryString["Type_id"]);
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                con.Open();
-                Cmd.ExecuteNonQuery();
-                Response.Write("<Script>alert('Product Type Name Updated Successfully')</Script>");
-                txtUpdatePTypeName.Text = null;
-                con.Close();
-                ViewDetail();
+                using (SqlCommand Cmd = new SqlCommand("update Product_Type set Product_Type_Name ='" + txtUpdatePTypeName.Text + "' where ProductType_id='" + GID + "'", con))
+                {
+                    con.Open();
+                    Cmd.ExecuteNonQuery();
+                    Response.Write("<Script>alert('Product Type Name Updated Successfully')</Script>");
+                    txtUpdatePTypeName.Text = null;
+                    con.Close();
+                    ViewDetail();
+                }
             }
+        }
+        catch (Exception)
+        {
+
+            Response.Redirect("error.aspx");
         }
     }
 }

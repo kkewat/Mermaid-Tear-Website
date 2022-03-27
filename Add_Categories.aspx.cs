@@ -17,54 +17,82 @@ public partial class Add_Categories : System.Web.UI.Page
         {
             BindRepeaterCategory();
         }
-        
+
     }
 
     private void BindRepeaterCategory()
     {
-        SqlConnection con = new SqlConnection(Connection);
-        using (SqlCommand cmd = new SqlCommand("Select * from Category", con))
+        try
         {
-            using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+            SqlConnection con = new SqlConnection(Connection);
+            using (SqlCommand cmd = new SqlCommand("Select * from Category", con))
             {
-                DataTable dt = new DataTable();
-                sda.Fill(dt);
-                CatRepeater.DataSource = dt;
-                CatRepeater.DataBind();
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    CatRepeater.DataSource = dt;
+                    CatRepeater.DataBind();
+                }
             }
+        }
+        catch(Exception ex)
+        {
+            Response.Redirect("error.aspx");
         }
     }
 
     protected void AddCategories_Click(object sender, EventArgs e)
     {
-        string Name = Catname.Text;
-        SqlConnection con = new SqlConnection(Connection);
-        
-            SqlCommand cmd = new SqlCommand(@"INSERT INTO Category
-           ([Category_Name])
-     VALUES
-           ('"+Name+"')",con);
-
-            con.Open();
-            cmd.ExecuteNonQuery();
-            con.Close();
-
-        BindRepeaterCategory();
-        Catname.Text = null;
-    }
-    protected void Delete_Click(object sender, EventArgs e)
-    {
-        RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
-        Label bid = ((Label)row.FindControl("id")) as Label;
-        using (SqlConnection con = new SqlConnection(Connection))
+    try
         {
-            using (SqlCommand cmd = new SqlCommand(" delete from category Where Category_id = '" + bid.Text + "' ", con))
+            if (Catname.Text != null)
             {
+                string Name = Catname.Text;
+                SqlConnection con = new SqlConnection(Connection);
+
+                SqlCommand cmd = new SqlCommand(@"INSERT INTO Category
+           ([Category_Name])
+        VALUES
+           ('" + Name + "')", con);
+
                 con.Open();
                 cmd.ExecuteNonQuery();
-                Response.Write("<Script>alert('Category Deleted Successfully')</Script>");
+                con.Close();
+
+                BindRepeaterCategory();
+                Catname.Text = null;
+            }
+            else
+            {
+                err.Text = "*Please enter Category Name";
             }
         }
-        BindRepeaterCategory();
+        catch(Exception ex)
+        {
+            Response.Redirect("error.aspx");
+        }
     }
+    protected void Delete_Click(object sender, EventArgs e)
+    { 
+    try {
+            RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
+            Label bid = ((Label)row.FindControl("id")) as Label;
+            using (SqlConnection con = new SqlConnection(Connection))
+            {
+                using (SqlCommand cmd = new SqlCommand(" delete from category Where Category_id = '" + bid.Text + "' ", con))
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    Response.Write("<Script>alert('Category Deleted Successfully')</Script>");
+                }
+            }
+            BindRepeaterCategory();
+        }
+        catch(Exception ex)
+        {
+            Response.Redirect("error.aspx");
+        }
+    }
+    
 }

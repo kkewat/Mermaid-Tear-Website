@@ -35,47 +35,68 @@ public partial class User_Account : System.Web.UI.Page
 
     protected void BindData()
     {
-        String Name = Session["Username"].ToString();
-        SqlConnection con = new SqlConnection(Connection);
-        SqlCommand cmd = new SqlCommand("select * from User_detail where Username = '"+Name+"'", con);
-        con.Open();
-        SqlDataReader reader = cmd.ExecuteReader();
-        reader.Read();
-        //if (FirstName.Text == null | LastName.Text == null | txtUserName.Text == null | mail.Text == null | Phone_no.Text == null)
-        //{
+        try
+        {
+            String Name = Session["Username"].ToString();
+            SqlConnection con = new SqlConnection(Connection);
+            SqlCommand cmd = new SqlCommand("select * from User_detail where Username = '" + Name + "'", con);
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            //if (FirstName.Text == null | LastName.Text == null | txtUserName.Text == null | mail.Text == null | Phone_no.Text == null)
+            //{
             FirstName.Text = reader["First_Name"].ToString();
             LastName.Text = reader["Last_Name"].ToString();
             txtUserName.Text = Name;
             mail.Text = reader["Email"].ToString();
             Phone_no.Text = reader["Phone_no"].ToString();
-        //}
-        reader.Close();
-        con.Close();
+            //}
+            reader.Close();
+            con.Close();
+        }
+        catch (Exception)
+        {
+            Response.Redirect("error.aspx");
+        }
     }
     protected void delAccount_Click(object sender, EventArgs e)
     {
-        String Name = Session["Username"].ToString();
-        SqlConnection con = new SqlConnection(Connection);
-        SqlCommand cmd = new SqlCommand("delete from User_detail Where Username='" + Name + "'", con);
-        con.Open();
-        Response.Write("<script>alert('Account Deleted Successfully')</script>");
-        con.Close();
-        Response.Redirect("Default.aspx");
+        try
+        {
+            String Name = Session["Username"].ToString();
+            SqlConnection con = new SqlConnection(Connection);
+            SqlCommand cmd = new SqlCommand("delete from User_detail Where Username='" + Name + "'", con);
+            con.Open();
+            Response.Write("<script>alert('Account Deleted Successfully')</script>");
+            con.Close();
+            Response.Redirect("Default.aspx");
+        }
+        catch (Exception)
+        {
+            Response.Redirect("error.aspx");
+        }
     }
 
     protected void changepsd_Click(object sender, EventArgs e)
     {
-        String Name = Session["Username"].ToString();
-        byte[] encData_byte = new byte[npsswd.Text.Length];
-        encData_byte = System.Text.Encoding.UTF8.GetBytes(npsswd.Text);
-        string ePassword = Convert.ToBase64String(encData_byte);
-        SqlConnection con = new SqlConnection(Connection);
-        SqlCommand cmd = new SqlCommand("update User_detail set Password ='" + ePassword + "' where Username='" + Name + "'",con);
-        con.Open();
-        cmd.ExecuteNonQuery();
-        Response.Write("<script>alert('Password changed Successfully')</script>");
-        con.Close();
-        npsswd.Text = null;
-        psd.Checked = false;
+        try
+        {
+            String Name = Session["Username"].ToString();
+            byte[] encData_byte = new byte[npsswd.Text.Length];
+            encData_byte = System.Text.Encoding.UTF8.GetBytes(npsswd.Text);
+            string ePassword = Convert.ToBase64String(encData_byte);
+            SqlConnection con = new SqlConnection(Connection);
+            SqlCommand cmd = new SqlCommand("update User_detail set Password ='" + ePassword + "' where Username='" + Name + "'", con);
+            con.Open();
+            cmd.ExecuteNonQuery();
+            Response.Write("<script>alert('Password changed Successfully')</script>");
+            con.Close();
+            npsswd.Text = null;
+            psd.Checked = false;
+        }
+        catch (Exception)
+        {
+            Response.Redirect("error.aspx");
+        }
     }
 }

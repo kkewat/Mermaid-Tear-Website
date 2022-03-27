@@ -15,67 +15,70 @@ public partial class Cart : System.Web.UI.Page
     {
         if(!IsPostBack)
         {
-            if (Session["Username"] != null)
+            try
             {
-                String name = Session["Username"].ToString();
-                BindProductDetail();
-
-                decimal total = 0,checkboxPrice = 0;
-                foreach(RepeaterItem item in CartDatarptr.Items)
+                if (Session["Username"] != null)
                 {
-                    Label Price = (Label)item.FindControl("Label1");
-                    string s = Price.Text;
-                    total += Convert.ToDecimal(s);
+                    String name = Session["Username"].ToString();
+                    BindProductDetail();
 
-                    var checkBox1 = (CheckBox)item.FindControl("selectid");
-                    if (checkBox1.Checked == true)
+                    decimal total = 0, checkboxPrice = 0;
+                    foreach (RepeaterItem item in CartDatarptr.Items)
                     {
-                        //Label Price1 = (Label)item.FindControl("Label1");
-                        //string s1 = Price1.Text;
-                        checkboxPrice += Convert.ToDecimal(s);
+                        Label Price = (Label)item.FindControl("Label1");
+                        string s = Price.Text;
+                        total += Convert.ToDecimal(s);
+
+                        var checkBox1 = (CheckBox)item.FindControl("selectid");
+                        if (checkBox1.Checked == true)
+                        {
+                            //Label Price1 = (Label)item.FindControl("Label1");
+                            //string s1 = Price1.Text;
+                            checkboxPrice += Convert.ToDecimal(s);
+                        }
                     }
+                    GrandPrice.Text += total.ToString();
+                    Label2.Text += checkboxPrice.ToString();
+
                 }
-                GrandPrice.Text += total.ToString();
-                Label2.Text += checkboxPrice.ToString();
+                else
+                {
+                    Response.Write("<script>alert('Login To Add Product To Cart')</script>");
+                    Response.Redirect("Login.aspx");
+                }
 
+                delEmpty1();
             }
-            else
+            catch (Exception ex)
             {
-                Response.Write("<script>alert('Login To Add Product To Cart')</script>");
-                Response.Redirect("Login.aspx");
-             }
-
-            //delEmpty();
+                Response.Redirect("error.aspx");
+            }
         }
     }
 
-    //private void delEmpty()
-    //{
-    //    String Name = Session["Username"].ToString();
-    //    SqlConnection con = new SqlConnection(Connection);
-    //    SqlCommand cmd = new SqlCommand("delete from Temp_Cart Where User_Name = '" + Name + "'", con);
-    //    con.Open();
-    //    cmd.ExecuteNonQuery();
-    //    con.Close();
-    //    Response.Redirect("UserHomePage.aspx");
-    //}
-
     private void BindProductDetail()
     {
-        String Name = Session["Username"].ToString();
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand cmd = new SqlCommand("Select * from Cart Where User_Name='" + Name + "'", con))
+            String Name = Session["Username"].ToString();
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                cmd.CommandType = CommandType.Text;
-                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                using (SqlCommand cmd = new SqlCommand("Select * from Cart Where User_Name='" + Name + "'", con))
                 {
-                    DataTable dt = new DataTable();
-                    sda.Fill(dt);
-                    CartDatarptr.DataSource = dt;
-                    CartDatarptr.DataBind();
+                    cmd.CommandType = CommandType.Text;
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        CartDatarptr.DataSource = dt;
+                        CartDatarptr.DataBind();
+                    }
                 }
             }
+        }
+        catch (Exception ex)
+        {
+            Response.Redirect("error.aspx");
         }
     }
 
@@ -83,75 +86,97 @@ public partial class Cart : System.Web.UI.Page
 
     protected void increment_Click(object sender, EventArgs e)
     {
-        RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
-        Label Cid = ((Label)row.FindControl("id")) as Label;
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand cmd = new SqlCommand("UPDATE Cart SET Quantity = Quantity + 1 where Cart_id ='"+ Cid.Text +"' ", con))
+            RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
+            Label Cid = ((Label)row.FindControl("id")) as Label;
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                con.Open();
-                cmd.ExecuteNonQuery();
-                BindProductDetail();
+                using (SqlCommand cmd = new SqlCommand("UPDATE Cart SET Quantity = Quantity + 1 where Cart_id ='" + Cid.Text + "' ", con))
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    BindProductDetail();
+                }
             }
         }
-        
+        catch (Exception ex)
+        {
+            Response.Redirect("error.aspx");
+        }
     }
 
     protected void decrement_Click(object sender, EventArgs e)
     {
-        RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
-        Label Cid = ((Label)row.FindControl("id")) as Label;
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand cmd = new SqlCommand("UPDATE Cart SET Quantity = Quantity - 1 where Cart_id ='" + Cid.Text + "' ", con))
+            RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
+            Label Cid = ((Label)row.FindControl("id")) as Label;
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                con.Open();
-                cmd.ExecuteNonQuery();
-                BindProductDetail();
+                using (SqlCommand cmd = new SqlCommand("UPDATE Cart SET Quantity = Quantity - 1 where Cart_id ='" + Cid.Text + "' ", con))
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    BindProductDetail();
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            Response.Redirect("error.aspx");
         }
     }
 
     protected void del_Click(object sender, EventArgs e)
     {
-        RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
-        Label Cid = ((Label)row.FindControl("id1")) as Label;
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand cmd = new SqlCommand(" delete from Cart Where Cart_id = '" + Cid.Text + "' ", con))
+            RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
+            Label Cid = ((Label)row.FindControl("id1")) as Label;
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                con.Open();
-                cmd.ExecuteNonQuery();
-                Response.Write("<Script>alert('Item Deleted Successfully')</Script>");
+                using (SqlCommand cmd = new SqlCommand(" delete from Cart Where Cart_id = '" + Cid.Text + "' ", con))
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    Response.Write("<Script>alert('Item Deleted Successfully')</Script>");
+                }
             }
+            BindProductDetail();
         }
-        BindProductDetail();
+        catch (Exception ex)
+        {
+            Response.Redirect("error.aspx");
+        }
     }
 
     protected void Payment_Click(object sender, EventArgs e)
     {
-        String Name = Session["Username"].ToString();
-        List<int> ids = new List<int>();
-        foreach (RepeaterItem item in CartDatarptr.Items)
+        try
         {
-            if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
+            String Name = Session["Username"].ToString();
+            List<int> ids = new List<int>();
+            foreach (RepeaterItem item in CartDatarptr.Items)
             {
-                var checkBox = (CheckBox)item.FindControl("selectid");
-                if(checkBox.Checked == true)
-                 {
-                    Label Cid = ((Label)item.FindControl("id1")) as Label;
-                    ids.Add(Convert.ToInt32(Cid.Text));
+                if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
+                {
+                    var checkBox = (CheckBox)item.FindControl("selectid");
+                    if (checkBox.Checked == true)
+                    {
+                        Label Cid = ((Label)item.FindControl("id1")) as Label;
+                        ids.Add(Convert.ToInt32(Cid.Text));
 
-                    Label PI = ((Label)item.FindControl("pi1")) as Label;
-                    Label PN = ((Label)item.FindControl("pn1")) as Label;
-                    Label UR = ((Label)item.FindControl("iu1")) as Label;
-                    Label SZ = ((Label)item.FindControl("si1")) as Label;
-                    Label WG = ((Label)item.FindControl("we1")) as Label;
-                    Label PR = ((Label)item.FindControl("pr1")) as Label;
-                    Label QN = ((Label)item.FindControl("qu1")) as Label;
+                        Label PI = ((Label)item.FindControl("pi1")) as Label;
+                        Label PN = ((Label)item.FindControl("pn1")) as Label;
+                        Label UR = ((Label)item.FindControl("iu1")) as Label;
+                        Label SZ = ((Label)item.FindControl("si1")) as Label;
+                        Label WG = ((Label)item.FindControl("we1")) as Label;
+                        Label PR = ((Label)item.FindControl("pr1")) as Label;
+                        Label QN = ((Label)item.FindControl("qu1")) as Label;
 
-                    SqlConnection con = new SqlConnection(Connection);
-                    SqlCommand cmd = new SqlCommand(@"INSERT INTO Temp_Cart
+                        SqlConnection con = new SqlConnection(Connection);
+                        SqlCommand cmd = new SqlCommand(@"INSERT INTO Temp_Cart
            ([Cart_id]
            ,[User_name]
            ,[Product_id]
@@ -162,16 +187,41 @@ public partial class Cart : System.Web.UI.Page
            ,[Price]
            ,[Quantity])
      VALUES
-           ('" + Cid.Text + "','"+ Name +"','" + PI.Text + "','" + PN.Text + "','" + UR.Text + "','" + SZ.Text + "','" + WG.Text + "','" + PR.Text + "','" + QN.Text + "')", con);
+           ('" + Cid.Text + "','" + Name + "','" + PI.Text + "','" + PN.Text + "','" + UR.Text + "','" + SZ.Text + "','" + WG.Text + "','" + PR.Text + "','" + QN.Text + "')", con);
 
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                  }
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
             }
+            var array = ids.ToArray();
+            Session["Cart"] = array;
+            Response.Redirect("Payment.aspx");
         }
-        var array = ids.ToArray();
-        Session["Cart"] = array;
-        Response.Redirect("Payment.aspx");
+        catch (Exception ex)
+        {
+
+            Response.Redirect("error.aspx");
+        }
     }
+
+    private void delEmpty1()
+    {
+        try
+        {
+            String Name = Session["Username"].ToString();
+            SqlConnection con = new SqlConnection(Connection);
+            SqlCommand cmd = new SqlCommand("delete from Temp_Cart Where User_Name = '" + Name + "'", con);
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+        catch (Exception ex)
+        {
+
+            Response.Redirect("error.aspx");
+        }
+    }
+
 }

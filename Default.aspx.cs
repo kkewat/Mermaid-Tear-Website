@@ -24,25 +24,41 @@ public partial class _Default : System.Web.UI.Page
 
     public void search_click()
     {
-        String Product = Request["search"].ToString(); 
-        Response.Redirect("ViewCats.aspx?searchProduct='"+Product+"'");
+        try
+        {
+            String Product = Request["search"].ToString();
+            Response.Redirect("ViewCats.aspx?searchProduct='" + Product + "'");
+        }
+        catch (Exception ex)
+        {
+
+            Response.Redirect("error.aspx");
+        }
     }
     private void BindImage()
     {
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand cmd = new SqlCommand("Select * from Slider Where Status='Active'", con))
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                cmd.CommandType = CommandType.Text;
-                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                using (SqlCommand cmd = new SqlCommand("Select * from Slider Where Status='Active'", con))
                 {
-                    DataTable dt = new DataTable();
-                    sda.Fill(dt);
-                    Imagerptr.DataSource = dt;
-                    Imagerptr.DataBind();
+                    cmd.CommandType = CommandType.Text;
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        Imagerptr.DataSource = dt;
+                        Imagerptr.DataBind();
+                    }
                 }
-            }
 
+            }
+        }
+        catch (Exception)
+        {
+
+            Response.Redirect("error.aspx");
         }
     }
     protected string GetActiveImage(int ItemIndex)
@@ -79,7 +95,7 @@ public partial class _Default : System.Web.UI.Page
         {
 
             //Console.WriteLine("Exception occurr: " + ex);
-            throw ex;
+            Response.Write("Something Went Wrong!!!!!");
         }
     }
 

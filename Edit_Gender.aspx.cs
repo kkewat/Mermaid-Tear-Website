@@ -32,38 +32,54 @@ public partial class Edit_Gender : System.Web.UI.Page
     private void ViewDetail()
     {
 
-        int GID = Convert.ToInt32(Request.QueryString["gend_id"]);
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand cmd = new SqlCommand("Select * from Gender Where Gender_id ='" + GID + "'", con))
+            int GID = Convert.ToInt32(Request.QueryString["gend_id"]);
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
+                using (SqlCommand cmd = new SqlCommand("Select * from Gender Where Gender_id ='" + GID + "'", con))
                 {
-                    txtID.Text = GID.ToString();
-                    txtName.Text = reader["Gender_Name"].ToString();
-                    reader.Close();
-                    con.Close();
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        txtID.Text = GID.ToString();
+                        txtName.Text = reader["Gender_Name"].ToString();
+                        reader.Close();
+                        con.Close();
+                    }
                 }
             }
+        }
+        catch (Exception ex)
+        {
+
+            Response.Redirect("error.aspx");
         }
     }
     protected void UpdateGender_Click(object sender, EventArgs e)
     {
-        int GID = Convert.ToInt32(Request.QueryString["gend_id"]);
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand Cmd = new SqlCommand("update Gender set Gender_Name ='" + txtUpdateGenderName.Text + "' where Gender_id='" + GID + "'", con))
+            int GID = Convert.ToInt32(Request.QueryString["gend_id"]);
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                con.Open();
-                Cmd.ExecuteNonQuery();
-                Response.Write("<Script>alert('Gender Name Updated Successfully')</Script>");
-                txtUpdateGenderName.Text = null;
-                con.Close();
-                ViewDetail();
+                using (SqlCommand Cmd = new SqlCommand("update Gender set Gender_Name ='" + txtUpdateGenderName.Text + "' where Gender_id='" + GID + "'", con))
+                {
+                    con.Open();
+                    Cmd.ExecuteNonQuery();
+                    Response.Write("<Script>alert('Gender Name Updated Successfully')</Script>");
+                    txtUpdateGenderName.Text = null;
+                    con.Close();
+                    ViewDetail();
+                }
             }
+        }
+        catch (Exception)
+        {
+
+            Response.Redirect("error.aspx");
         }
     }
 }

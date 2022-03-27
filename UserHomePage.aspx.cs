@@ -18,7 +18,7 @@ public partial class UserHomePage : System.Web.UI.Page
         {
             logoutbtn.Visible = true;
             loginbtn.Visible = false;
-            LblSuccess.Text = "Login Success, Welcome"+Session["Username"].ToString();
+            LblSuccess.Text = "Login Success, Welcome "+Session["Username"].ToString();
          }
          else 
          {
@@ -36,20 +36,27 @@ public partial class UserHomePage : System.Web.UI.Page
 
     private void BindImage()
     {
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand cmd = new SqlCommand("Select * from Slider Where Status='Active'", con))
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                cmd.CommandType = CommandType.Text;
-                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                using (SqlCommand cmd = new SqlCommand("Select * from Slider Where Status='Active'", con))
                 {
-                    DataTable dt = new DataTable();
-                    sda.Fill(dt);
-                    Imagerptr.DataSource = dt;
-                    Imagerptr.DataBind();
+                    cmd.CommandType = CommandType.Text;
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        Imagerptr.DataSource = dt;
+                        Imagerptr.DataBind();
+                    }
                 }
-            }
 
+            }
+        }
+        catch (Exception)
+        {
+            Response.Redirect("error.aspx");
         }
     }
     protected void searchbtn_Click(object sender, EventArgs e)
@@ -91,7 +98,7 @@ public partial class UserHomePage : System.Web.UI.Page
         {
 
             //Console.WriteLine("Exception occurr: " + ex);
-            throw ex;
+            Response.Redirect("error.aspx");
         }
     }
     protected void Cart_Click()
@@ -107,26 +114,33 @@ public partial class UserHomePage : System.Web.UI.Page
     }
     public void BindCartNum()
     {
-        //String name = Session["Username"].ToString();
-        if (Session["Username"] != null)
+        try
         {
-            String name = Session["Username"].ToString();
-            string stmt = "SELECT COUNT(*) FROM Cart  where User_Name = '"+name+"'";
-            int count = 0;
-
-            using (SqlConnection con = new SqlConnection(Connection))
+            //String name = Session["Username"].ToString();
+            if (Session["Username"] != null)
             {
-                using (SqlCommand cmdCount = new SqlCommand(stmt,con))
+                String name = Session["Username"].ToString();
+                string stmt = "SELECT COUNT(*) FROM Cart  where User_Name = '" + name + "'";
+                int count = 0;
+
+                using (SqlConnection con = new SqlConnection(Connection))
                 {
-                    con.Open();
-                    count = (int)cmdCount.ExecuteScalar();
+                    using (SqlCommand cmdCount = new SqlCommand(stmt, con))
+                    {
+                        con.Open();
+                        count = (int)cmdCount.ExecuteScalar();
+                    }
                 }
+                num.InnerText = count.ToString();
             }
-            num.InnerText = count.ToString();
+            else
+            {
+                num.InnerText = 0.ToString();
+            }
         }
-        else
+        catch (Exception)
         {
-            num.InnerText = 0.ToString();
+            Response.Redirect("error.aspx");
         }
     }
     protected void logoutbtn_Click(object sender, EventArgs e)

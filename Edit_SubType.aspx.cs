@@ -31,40 +31,55 @@ public partial class Edit_SubType : System.Web.UI.Page
 
     private void ViewDetail()
     {
-
-        int BID = Convert.ToInt32(Request.QueryString["id"]);
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand cmd = new SqlCommand("Select * from Product_SubType Where Product_SubType_id ='" + BID + "'", con))
-            {
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
 
-                if (reader.Read())
+            int BID = Convert.ToInt32(Request.QueryString["id"]);
+            using (SqlConnection con = new SqlConnection(Connection))
+            {
+                using (SqlCommand cmd = new SqlCommand("Select * from Product_SubType Where Product_SubType_id ='" + BID + "'", con))
                 {
-                    txtID.Text = BID.ToString();
-                    txtName.Text = reader["Product_Subtype_name"].ToString();
-                    reader.Close();
-                    con.Close();
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        txtID.Text = BID.ToString();
+                        txtName.Text = reader["Product_Subtype_name"].ToString();
+                        reader.Close();
+                        con.Close();
+                    }
                 }
             }
+        }
+        catch (Exception)
+        {
+
+            Response.Redirect("error.aspx");
         }
     }
 
     protected void UpdateSubtype_Click(object sender, EventArgs e)
     {
-        int BID = Convert.ToInt32(Request.QueryString["id"]);
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand Cmd = new SqlCommand("update Product_SubType set Product_Subtype_name ='" + txtUpdateSubTypeName.Text + "' where Product_SubType_id='" + BID + "'", con))
+            int BID = Convert.ToInt32(Request.QueryString["id"]);
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                con.Open();
-                Cmd.ExecuteNonQuery();
-                Response.Write("<Script>alert('Record Updated Successfully')</Script>");
-                txtUpdateSubTypeName.Text = null;
-                con.Close();
-                ViewDetail();
+                using (SqlCommand Cmd = new SqlCommand("update Product_SubType set Product_Subtype_name ='" + txtUpdateSubTypeName.Text + "' where Product_SubType_id='" + BID + "'", con))
+                {
+                    con.Open();
+                    Cmd.ExecuteNonQuery();
+                    Response.Write("<Script>alert('Record Updated Successfully')</Script>");
+                    txtUpdateSubTypeName.Text = null;
+                    con.Close();
+                    ViewDetail();
+                }
             }
+        }
+        catch (Exception)
+        {
+            Response.Redirect("error.aspx");
         }
     }
 }

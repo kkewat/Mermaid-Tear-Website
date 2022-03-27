@@ -32,38 +32,54 @@ public partial class Edit_GrossWeight : System.Web.UI.Page
     private void ViewDetail()
     {
 
-        int GID = Convert.ToInt32(Request.QueryString["id"]);
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand cmd = new SqlCommand("Select * from Gross_Weight Where Weight_id ='" + GID + "'", con))
+            int GID = Convert.ToInt32(Request.QueryString["id"]);
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
+                using (SqlCommand cmd = new SqlCommand("Select * from Gross_Weight Where Weight_id ='" + GID + "'", con))
                 {
-                    txtID.Text = GID.ToString();
-                    txtName.Text = reader["Weight_Name"].ToString();
-                    reader.Close();
-                    con.Close();
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        txtID.Text = GID.ToString();
+                        txtName.Text = reader["Weight_Name"].ToString();
+                        reader.Close();
+                        con.Close();
+                    }
                 }
             }
+        }
+        catch (Exception)
+        {
+
+            Response.Redirect("error.aspx");
         }
     }
     protected void UpdateWeight_Click(object sender, EventArgs e)
     {
-        int GID = Convert.ToInt32(Request.QueryString["id"]);
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand Cmd = new SqlCommand("update Gross_Weight set Weight_Name ='" + txtUpdateWeightName.Text + "' where Weight_id='" + GID + "'", con))
+            int GID = Convert.ToInt32(Request.QueryString["id"]);
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                con.Open();
-                Cmd.ExecuteNonQuery();
-                Response.Write("<Script>alert('Gender Name Updated Successfully')</Script>");
-                txtUpdateWeightName.Text = null;
-                con.Close();
-                ViewDetail();
+                using (SqlCommand Cmd = new SqlCommand("update Gross_Weight set Weight_Name ='" + txtUpdateWeightName.Text + "' where Weight_id='" + GID + "'", con))
+                {
+                    con.Open();
+                    Cmd.ExecuteNonQuery();
+                    Response.Write("<Script>alert('Gender Name Updated Successfully')</Script>");
+                    txtUpdateWeightName.Text = null;
+                    con.Close();
+                    ViewDetail();
+                }
             }
+        }
+        catch (Exception)
+        {
+
+            Response.Redirect("error.aspx");
         }
     }
 }

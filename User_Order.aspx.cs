@@ -27,57 +27,78 @@ public partial class User_Order : System.Web.UI.Page
 
     private void ChangeSelection()
     {
-        foreach (RepeaterItem item in OrderRepeater.Items)
+        try
         {
-            Label status = (Label)item.FindControl("Label2");
-            Label showCancelled = (Label)item.FindControl("Label3");
-            LinkButton cancel = (LinkButton)item.FindControl("DeleteOrder");
-
-            string st = status.Text;
-            if(st == "Cancelled")
+            foreach (RepeaterItem item in OrderRepeater.Items)
             {
-                cancel.Visible = false;
-                showCancelled.Visible = true;
+                Label status = (Label)item.FindControl("Label2");
+                Label showCancelled = (Label)item.FindControl("Label3");
+                LinkButton cancel = (LinkButton)item.FindControl("DeleteOrder");
+
+                string st = status.Text;
+                if (st == "Cancelled")
+                {
+                    cancel.Visible = false;
+                    showCancelled.Visible = true;
+                }
             }
+        }
+        catch (Exception)
+        {
+            Response.Redirect("error.aspx");
         }
     }
 
     private void BindOrders()
     {
-        if (Session["Username"] != null)
+        try
         {
-            String Name = Session["Username"].ToString();
-
-            //String Name = Session["Username"].ToString();
-            SqlConnection con = new SqlConnection(Connection);
-            using (SqlCommand cmd = new SqlCommand("SELECT * FROM [Order] where User_Name ='"+ Name +"' ORDER BY Order_id DESC", con))   // We write Order as [Order] because Order is an Command in sql and our table is also named order
+            if (Session["Username"] != null)
             {
-                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
-                {
-                    DataTable dt = new DataTable();
-                    sda.Fill(dt);
-                    OrderRepeater.DataSource = dt;
-                    OrderRepeater.DataBind();
+                String Name = Session["Username"].ToString();
 
+                //String Name = Session["Username"].ToString();
+                SqlConnection con = new SqlConnection(Connection);
+                using (SqlCommand cmd = new SqlCommand("SELECT * FROM [Order] where User_Name ='" + Name + "' ORDER BY Order_id DESC", con))   // We write Order as [Order] because Order is an Command in sql and our table is also named order
+                {
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        OrderRepeater.DataSource = dt;
+                        OrderRepeater.DataBind();
+
+                    }
                 }
             }
+        }
+        catch (Exception)
+        {
+            Response.Redirect("error.aspx");
         }
     }
 
     protected void DeleteOrder_Click(object sender, EventArgs e)
     {
-        RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
-        Label oid = ((Label)row.FindControl("Label1")) as Label;
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand cmd = new SqlCommand(" update [Order] set Order_Status ='Cancelled' Where Order_id = '" + oid.Text + "' ", con))
+            RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
+            Label oid = ((Label)row.FindControl("Label1")) as Label;
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                con.Open();
-                cmd.ExecuteNonQuery();
-                Response.Write("<Script>alert('Item Deleted Successfully')</Script>");
+                using (SqlCommand cmd = new SqlCommand(" update [Order] set Order_Status ='Cancelled' Where Order_id = '" + oid.Text + "' ", con))
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    Response.Write("<Script>alert('Item Deleted Successfully')</Script>");
+                }
             }
+            BindOrders();
+            Response.Redirect("User_Order.aspx");
         }
-        BindOrders();
-        Response.Redirect("User_Order.aspx");
+        catch (Exception)
+        {
+            Response.Redirect("error.aspx");
+        }
     }
 }

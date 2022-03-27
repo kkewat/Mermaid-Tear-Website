@@ -21,41 +21,48 @@ public partial class AdminViewCats : System.Web.UI.Page
 
     private void BindProdViewRepeater()
     {
-        string Cat, search, p_search;
-        Cat = Request.QueryString["searchCat"];
-        search = Request.QueryString["searchProduct"];
-        p_search = "%" + search + "%";
-        if (Cat != null)
+        try
         {
-            using (SqlConnection con = new SqlConnection(Connection))
+            string Cat, search, p_search;
+            Cat = Request.QueryString["searchCat"];
+            search = Request.QueryString["searchProduct"];
+            p_search = "%" + search + "%";
+            if (Cat != null)
             {
-                SqlCommand cmd = new SqlCommand("Cat_Search", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@CategoryName", Cat);
-                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                using (SqlConnection con = new SqlConnection(Connection))
                 {
-                    DataTable dt = new DataTable();
-                    sda.Fill(dt);
-                    ViewRepeater.DataSource = dt;
-                    ViewRepeater.DataBind();
+                    SqlCommand cmd = new SqlCommand("Cat_Search", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@CategoryName", Cat);
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        ViewRepeater.DataSource = dt;
+                        ViewRepeater.DataBind();
+                    }
+                }
+            }
+            else if (search != null)
+            {
+                using (SqlConnection con = new SqlConnection(Connection))
+                {
+                    SqlCommand cmd1 = new SqlCommand("Pro_Search", con);
+                    cmd1.CommandType = CommandType.StoredProcedure;
+                    cmd1.Parameters.AddWithValue("@ProName", p_search);
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd1))
+                    {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        ViewRepeater.DataSource = dt;
+                        ViewRepeater.DataBind();
+                    }
                 }
             }
         }
-        else if (search != null)
+        catch (Exception ex)
         {
-            using (SqlConnection con = new SqlConnection(Connection))
-            {
-                SqlCommand cmd1 = new SqlCommand("Pro_Search", con);
-                cmd1.CommandType = CommandType.StoredProcedure;
-                cmd1.Parameters.AddWithValue("@ProName", p_search);
-                using (SqlDataAdapter sda = new SqlDataAdapter(cmd1))
-                {
-                    DataTable dt = new DataTable();
-                    sda.Fill(dt);
-                    ViewRepeater.DataSource = dt;
-                    ViewRepeater.DataBind();
-                }
-            }
+            Response.Redirect("error.aspx");
         }
     }
 }

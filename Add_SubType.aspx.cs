@@ -22,69 +22,97 @@ public partial class Add_SubType : System.Web.UI.Page
 
     private void BindSubTypeRepeater()
     {
-        SqlConnection con = new SqlConnection(Connection);
-        using (SqlCommand cmd = new SqlCommand("Select A.*,B.* from Product_SubType A inner join Product_Type B on B.ProductType_id =A.ProductType_id", con))
+        try
         {
-            using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+            SqlConnection con = new SqlConnection(Connection);
+            using (SqlCommand cmd = new SqlCommand("Select A.*,B.* from Product_SubType A inner join Product_Type B on B.ProductType_id =A.ProductType_id", con))
             {
-                DataTable dt = new DataTable();
-                sda.Fill(dt);
-                SubTypeRepeater.DataSource = dt;
-                SubTypeRepeater.DataBind();
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    SubTypeRepeater.DataSource = dt;
+                    SubTypeRepeater.DataBind();
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            Response.Redirect("error.aspx");
         }
     }
 
     private void MainTypeList()
     {
-        SqlConnection con = new SqlConnection(Connection);
-        SqlCommand cmd = new SqlCommand("Select * from Product_Type", con);
-        SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        DataTable dt = new DataTable();
-        sda.Fill(dt);
-        if (dt.Rows.Count != 0)
+        try
         {
-            Maintype.DataSource = dt;
-            Maintype.DataTextField = "Product_Type_Name";
-            Maintype.DataValueField = "ProductType_id";
-            Maintype.DataBind();
-            Maintype.Items.Insert(0, new ListItem("--Select--", "0"));
+            SqlConnection con = new SqlConnection(Connection);
+            SqlCommand cmd = new SqlCommand("Select * from Product_Type", con);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            if (dt.Rows.Count != 0)
+            {
+                Maintype.DataSource = dt;
+                Maintype.DataTextField = "Product_Type_Name";
+                Maintype.DataValueField = "ProductType_id";
+                Maintype.DataBind();
+                Maintype.Items.Insert(0, new ListItem("--Select--", "0"));
+            }
+        }
+        catch (Exception ex)
+        {
+            Response.Redirect("error.aspx");
         }
     }
 
     protected void SubTypebut_Click(object sender, EventArgs e)
     {
-        string Name = SubType.Text;
-        SqlConnection con = new SqlConnection(Connection);
-        SqlCommand cmd = new SqlCommand(@"INSERT INTO Product_SubType
+        try
+        {
+            string Name = SubType.Text;
+            SqlConnection con = new SqlConnection(Connection);
+            SqlCommand cmd = new SqlCommand(@"INSERT INTO Product_SubType
            ([Product_Subtype_name]
            ,[ProductType_id])
      VALUES
             ('" + Name + "','" + Maintype.SelectedItem.Value + "')", con);
-        con.Open();
-        cmd.ExecuteNonQuery();
+            con.Open();
+            cmd.ExecuteNonQuery();
 
-        Response.Write(Label2.Text = "Sub-Type " + Name + " Added Successfully");
-        SubType.Text = string.Empty;
-        con.Close();
-        Maintype.ClearSelection();
-        Maintype.Items.FindByValue("0").Selected = true;
+            Response.Write(Label2.Text = "Sub-Type " + Name + " Added Successfully");
+            SubType.Text = string.Empty;
+            con.Close();
+            Maintype.ClearSelection();
+            Maintype.Items.FindByValue("0").Selected = true;
 
-        BindSubTypeRepeater();
+            BindSubTypeRepeater();
+        }
+        catch (Exception ex)
+        {
+            Response.Redirect("error.aspx");
+        }
     }
     protected void Delete_Click(object sender, EventArgs e)
     {
-        RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
-        Label bid = ((Label)row.FindControl("id")) as Label;
-        using (SqlConnection con = new SqlConnection(Connection))
+        try
         {
-            using (SqlCommand cmd = new SqlCommand(" delete from Product_SubType Where Product_SubType_id = '" + bid.Text + "' ", con))
+            RepeaterItem row = (sender as LinkButton).Parent as RepeaterItem;
+            Label bid = ((Label)row.FindControl("id")) as Label;
+            using (SqlConnection con = new SqlConnection(Connection))
             {
-                con.Open();
-                cmd.ExecuteNonQuery();
-                Response.Write("<Script>alert('Row Deleted Successfully')</Script>");
+                using (SqlCommand cmd = new SqlCommand(" delete from Product_SubType Where Product_SubType_id = '" + bid.Text + "' ", con))
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    Response.Write("<Script>alert('Row Deleted Successfully')</Script>");
+                }
             }
+            BindSubTypeRepeater();
         }
-        BindSubTypeRepeater();
+        catch (Exception ex)
+        {
+            Response.Redirect("error.aspx");
+        }
     }
 }

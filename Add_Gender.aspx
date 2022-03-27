@@ -12,7 +12,8 @@
         <div class="col-md-3">
             <asp:TextBox ID="Gendername" CssClass="form-control"  runat="server"></asp:TextBox><br />
             <asp:Label ID="Label2" runat="server" Text=""></asp:Label>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*Add Gender Name" ControlToValidate="gendername" CssClass="text-danger" ForeColor="Red"></asp:RequiredFieldValidator>
+            <asp:Label ID="err" CssClass="text-danger" ForeColor="Red" runat="server" Text=""></asp:Label>
+            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*Add Gender Name" ControlToValidate="gendername" CssClass="text-danger" ForeColor="Red"></asp:RequiredFieldValidator>--%>
         </div>
     </div>
 

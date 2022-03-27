@@ -26,16 +26,24 @@ public partial class Orders : System.Web.UI.Page
 
     private void BindOrders()
     {
-        SqlConnection con = new SqlConnection(Connection);
-        using (SqlCommand cmd = new SqlCommand("SELECT * FROM [Order] ORDER BY Order_id DESC", con))   // We write Order as [Order] because Order is an Command in sql and our table is also named order
+        try
         {
-            using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+            SqlConnection con = new SqlConnection(Connection);
+            using (SqlCommand cmd = new SqlCommand("SELECT * FROM [Order] ORDER BY Order_id DESC", con))   // We write Order as [Order] because Order is an Command in sql and our table is also named order
             {
-                DataTable dt = new DataTable();
-                sda.Fill(dt);
-                OrderRepeater.DataSource = dt;
-                OrderRepeater.DataBind();
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    OrderRepeater.DataSource = dt;
+                    OrderRepeater.DataBind();
+                }
             }
+        }
+        catch (Exception)
+        {
+
+            Response.Redirect("error.aspx");
         }
     }
 }
