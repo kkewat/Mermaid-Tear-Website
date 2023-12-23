@@ -1,0 +1,105 @@
+﻿body{
+}
+
+.Center{
+    text-align:center;
+}
+
+.footer_position {
+    width:auto;
+    height:auto;
+    position:absolute;
+    top:600px;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+}
+
+/* view all products*/
+
+.probrand{
+    font-size:15px;
+    font-weight:600;
+    line-height:15px;
+    text-transform:uppercase;
+    font-family:sans-serif;
+}
+.proName{
+    font-size:13px;
+    line-height:17px;
+    font-family:sans-serif;
+}
+.proPrice{
+    font-size:14px;
+    line-height:17px;
+    font-family:sans-serif;
+    font-weight:600;
+}
+.pro_OriginalPrice{
+    font-size:13px;
+    line-height:17px;
+    font-family:sans-serif;
+    font-weight:400;
+    text-decoration:line-through;
+    color:gray;
+}
+.proPriceDiscount{
+    font-size:13px;
+    font-family:sans-serif;
+    font-weight:400;
+    color:firebrick;
+}
+
+/* Product View*/
+.proNameView{
+    font-size:20px;
+    line-height:25px;
+    font-family:sans-serif;
+    color:#696e80;
+
+}
+.pro_OriginalPriceView{
+    font-size:15px;
+
+    font-family:sans-serif;
+    font-weight:400;
+    text-decoration:line-through;
+    color:grey;
+}
+.proPriceDiscountView{
+    font-size:15px;
+    font-family:sans-serif;
+    font-weight:400;
+    color:firebrick;
+}
+.proPriceView{
+    font-size:16px;
+    line-height:17px;
+    font-family:sans-serif;
+    font-weight:600;
+    margin-top:10px;
+}
+.divDet1{
+    border-bottom:1px dashed #ff6a00;
+    margin-bottom:20px;
+}
+.h5Size{
+    font-weight:600;
+}
+.input[type=radio]{
+    margin-right:10px;
+    margin-left:10px;
+}
+.mainButton{
+    border-radius:3px;
+    outline-width:0;
+    margin-top:10px;
+    min-width:108px;
+    min-height:22px;
+    font-size:13px;
+    font-weight:500;
+    background-color:#ff5722;
+    color:#fff;
+}
+
