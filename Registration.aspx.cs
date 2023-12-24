@@ -68,7 +68,7 @@ public partial class Registration : System.Web.UI.Page
                 cmd.ExecuteNonQuery();
                 con.Close();
                 Response.Write("<script>alert('user registered successfully')</script>");
-                Response.Redirect("/Login.aspx");
+                Response.Redirect("Login.aspx");
             }
         }
         catch (Exception)
