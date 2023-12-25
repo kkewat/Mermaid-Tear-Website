@@ -72,7 +72,7 @@ public partial class Login : System.Web.UI.Page
                 if (Usertype == "User")
                 {
                     Session["Username"] = Username;
-                    Response.Redirect("https://mermaid-tear.azurewebsites.net/UserHomePage.aspx");
+                    Response.Redirect("~/UserHomePage.aspx");
                 }
                 else
                 if (Usertype == "Admin")
