@@ -72,7 +72,7 @@ public partial class Login : System.Web.UI.Page
                 if (Usertype == "User")
                 {
                     Session["Username"] = Username;
-                    Response.Redirect("/UserHomePage.aspx");
+                    Server.Transfer("/UserHomePage.aspx");
                 }
                 else
                 if (Usertype == "Admin")
