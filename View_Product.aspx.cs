@@ -128,7 +128,7 @@ public partial class View_Product : System.Web.UI.Page
 
                 using (SqlConnection con = new SqlConnection(Connection))
                 {
-                    using (SqlCommand cmd = new SqlCommand("select A.*,B.*,C.* from viewSize A inner join Products_Detail B on A.product_id = B.Product_id inner join Product_Size C on A.size = C.Size_id where A.product_id='" + PID + "'", con))
+                    using (SqlCommand cmd = new SqlCommand("select A.*,B.*,C.* from [dbo].[Stocks] A inner join Products_Detail B on A.product_id = B.Product_id inner join Product_Size C on A.size = C.Size_id where A.product_id='" + PID + "'", con))
                     {
                         cmd.CommandType = CommandType.Text;
                         using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
@@ -141,7 +141,7 @@ public partial class View_Product : System.Web.UI.Page
                             rblSize.DataBind();
                         }
                     }
-                    using (SqlCommand cmd = new SqlCommand("select A.*,B.*,C.* from viewWeight A inner join Products_Detail B on A.product_id = B.Product_id inner join Gross_Weight C on A.weight = C.Weight_id where A.product_id='" + PID + "'", con))
+                    using (SqlCommand cmd = new SqlCommand("select A.*,B.*,C.* from [dbo].[Stocks] A inner join Products_Detail B on A.product_id = B.Product_id inner join Gross_Weight C on A.weight = C.Weight_id where A.product_id='" + PID + "'", con))
                     {
                         cmd.CommandType = CommandType.Text;
                         using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
