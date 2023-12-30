@@ -12,6 +12,9 @@ Building an Online Jewellery Shopping Website that will use the Azure Services a
 
 Our goal is to provide a virtual platform for customers to shop for a wide variety of jewelry from the comfort of their homes. By automating the jewelry store, we aim to increase efficiency, reduce manual errors, and expand our customer base. Our user-friendly dynamic website will allow customers to easily browse and purchase jewelry from anywhere. Additionally, our website will feature "Custom Question Answers" powered by Azure Language, an AI service provided by Azure, to help customers with any questions they may have while shopping. This will improve the overall shopping experience and make it more enjoyable for our customers. We have used Azure App Service and Azure SQL Database to host and manage our website and data, respectively. We have also integrated an AI chatbot to enhance the overall customer experience.
 
+# **Industry Type :**
+Lifestyle
+
 # Core Azure Services :
 
 - **Azure App Service (for hosting the website)**
