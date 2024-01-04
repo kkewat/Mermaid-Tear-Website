@@ -54,7 +54,7 @@ Lifestyle
 - **Web Application hosted on Azure :** [**https://mermaid-tear.azurewebsites.net/**](https://mermaid-tear.azurewebsites.net/)
 - **Github Repository :** [**https://github.com/kkewat/Mermaid-Tear-Website.git**](https://github.com/kkewat/Mermaid-Tear-Website.git)
 - **Code :** [**https://github.com/kkewat/Mermaid-Tear-Website.git**](https://github.com/kkewat/Mermaid-Tear-Website.git)
-- **Documentation :** [(https://drive.google.com/file/d/1EVR8eziAT0v4ONBOMGGgsrlA41AM-VRZ/view?usp=drive_link). 
+- **Documentation :** https://drive.google.com/file/d/1EVR8eziAT0v4ONBOMGGgsrlA41AM-VRZ/view?usp=drive_link
 
 # **ScreenShots of Some Azure Resources :**
 **Azure Daatabase :**
